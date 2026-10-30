@@ -58,6 +58,13 @@ You get the audience size (sample and full base), the finished message with the 
 and PASS/FAIL against the brand rules. The customer list is saved to `4_outputs/brief_audience.csv`.
 Name one approved offer: Renewal discount, Data boost, Device credit, Plan upgrade, Data add-on, Roaming pass.
 
+## Checking the AI by hand (do this before hand-in)
+
+1. Open `3_ai_outputs/hand_check/hand_check_sheet.xlsx`. Read the Guide sheet.
+2. Two team members each fill one sheet (Labeler A, Labeler B) using the dropdowns, without looking at the AI labels or each other's sheet. 100 sentences: all 75 the AI marked as leave intent plus 25 random others.
+3. Save, then run `python check_labels.py`. It writes the agreement into `3_ai_outputs/how_we_did_it.md` and `hand_check/result.json`, and lists every disagreement in `hand_check/disagreements.csv`.
+4. Run `python run.py` again so the finals talk script uses your numbers.
+
 ## New support notes arrived?
 
 ```

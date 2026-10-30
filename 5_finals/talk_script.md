@@ -45,7 +45,7 @@ Then we find out cheaply. Offers cost money only when taken; the day-45 check st
 Customers the rules flag leave 13× more often than average on dates the rules never saw, a marketer can read and change them, and every customer comes with a reason that decides the offer. A model on 50,000 rows whose plan and contract fields show only the latest values would risk learning the future.
 
 **How do you know the AI read the notes correctly?**
-It labelled 403 distinct sentences, not 8,000 notes, so every label can be checked by a person. We checked [fill in: agreement % from your hand check]. The outcome agrees: flagged customers left at 49.3%. Any sentence it has never seen goes to a review queue as "unknown".
+It labelled 403 distinct sentences, not 8,000 notes, so every label can be checked by a person. [run check_labels.py after your blind hand check; this line fills in automatically] The outcome agrees: flagged customers left at 49.3%. Any sentence it has never seen goes to a review queue as "unknown".
 
 **Notes catch only 9% of leavers. Isn't that small?**
 It is the precise part: about 1 in 2 flagged customers leave. Most leavers never call support. Next: the welcome check-in for new customers (2.6× average churn) and asking agents to log every contact.

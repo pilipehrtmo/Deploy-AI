@@ -242,6 +242,15 @@ def build(R, root):
     ch = Charts(os.path.join(root, "1_report", "charts"))
     make_charts(R, ch)
     K = R["K"]
+    hc = os.path.join(root, "3_ai_outputs", "hand_check", "result.json")
+    if os.path.exists(hc):
+        import json
+        with open(hc, encoding="utf-8") as f:
+            h = json.load(f)
+        K["hand_check_text"] = (f"{h['labelers']} of us labelled {h['sentences']} sentences blind; we agreed with the AI on "
+                                f"leave / not leave for {h['flag_agree'] * 100:.0f}% of them and on the topic for {h['topic_agree'] * 100:.0f}%.")
+    else:
+        K["hand_check_text"] = "[run check_labels.py after your blind hand check; this line fills in automatically]"
 
     headline = [
         ("Customers whose support notes say they may leave: churn in next 60 days", pct(K["sig_rate"])),
@@ -552,7 +561,7 @@ Then we find out cheaply. Offers cost money only when taken; the day-45 check st
 Customers the rules flag leave {K['sig_lift']:.0f}× more often than average on dates the rules never saw, a marketer can read and change them, and every customer comes with a reason that decides the offer. A model on 50,000 rows whose plan and contract fields show only the latest values would risk learning the future.
 
 **How do you know the AI read the notes correctly?**
-It labelled 403 distinct sentences, not 8,000 notes, so every label can be checked by a person. We checked [fill in: agreement % from your hand check]. The outcome agrees: flagged customers left at {pct(K['sig_rate'])}. Any sentence it has never seen goes to a review queue as "unknown".
+It labelled 403 distinct sentences, not 8,000 notes, so every label can be checked by a person. {K['hand_check_text']} The outcome agrees: flagged customers left at {pct(K['sig_rate'])}. Any sentence it has never seen goes to a review queue as "unknown".
 
 **Notes catch only {pct(K['sig_share'], 0)} of leavers. Isn't that small?**
 It is the precise part: about 1 in 2 flagged customers leave. Most leavers never call support. Next: the welcome check-in for new customers ({K['r3_lift']:.1f}× average churn) and asking agents to log every contact.
