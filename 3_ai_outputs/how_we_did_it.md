@@ -20,8 +20,8 @@ offline and gives the same result every time.
 Why per sentence and not per note: 403 labels can be checked by a person in under an hour, and
 the same sentence always gets the same label.
 
-**Checks.** TODO before hand-in: a team member reads all 403 labels and 50 random full notes
-and records agreement here. Outcome check: customers whose notes carry intent ≥ 1
+**Checks.** A blind hand check by two team members is set up in `hand_check/`
+(sheet + `check_labels.py`); its result is added below when run. Outcome check: customers whose notes carry intent ≥ 1
 left at a 49–52% rate in the next 60 days vs 3.7% for all postpaid customers (`backtest.csv`).
 
 ## Step 2: campaign copy → `copy_templates.json`

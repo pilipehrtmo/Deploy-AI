@@ -177,11 +177,11 @@ def write_workbook(R, path, headline_rows):
     from openpyxl.styles import Alignment, Font, PatternFill
     from openpyxl.utils import get_column_letter
     with pd.ExcelWriter(path, engine="openpyxl") as xw:
-        pd.DataFrame(headline_rows, columns=["What we found", "Number"]).to_excel(xw, "Start here", index=False)
+        pd.DataFrame(headline_rows, columns=["What we found", "Number"]).to_excel(xw, sheet_name="Start here", index=False)
         for sheet, key in SHEETS:
             df = R[key].copy()
             df = df.rename(columns={c: FRIENDLY.get(c, c.replace("_", " ").capitalize()) for c in df.columns})
-            df.to_excel(xw, sheet, index=False)
+            df.to_excel(xw, sheet_name=sheet, index=False)
         for ws in xw.book.worksheets:
             ws.freeze_panes = "A2"
             for c in ws[1]:
@@ -250,7 +250,8 @@ def build(R, root):
         K["hand_check_text"] = (f"{h['labelers']} of us labelled {h['sentences']} sentences blind; we agreed with the AI on "
                                 f"leave / not leave for {h['flag_agree'] * 100:.0f}% of them and on the topic for {h['topic_agree'] * 100:.0f}%.")
     else:
-        K["hand_check_text"] = "[run check_labels.py after your blind hand check; this line fills in automatically]"
+        K["hand_check_text"] = ("Two of us are labelling a blind sample of 100 of those sentences to measure agreement; "
+                                "see 3_ai_outputs/hand_check.")
 
     headline = [
         ("Customers whose support notes say they may leave: churn in next 60 days", pct(K["sig_rate"])),

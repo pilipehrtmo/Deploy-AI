@@ -108,7 +108,7 @@ def main():
     if START in how:
         how = re.sub(re.escape(START) + r".*?" + re.escape(END), block, how, flags=re.S)
     else:
-        how = re.sub(r"\*\*Checks\.\*\* TODO before hand-in:.*?records agreement here\. ", "**Checks.** ", how, flags=re.S)
+        how = re.sub(r"\*\*Checks\.\*\* A blind hand check.*?when run\. ", "**Checks.** ", how, flags=re.S)
         how = how.rstrip() + "\n\n" + block + "\n"
     with open(HOW, "w", encoding="utf-8") as f:
         f.write(how)
