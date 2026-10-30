@@ -42,7 +42,11 @@ and `5_finals/slides.html`. To make the PDFs, open either HTML file in Chrome or
 
 ---
 
-## For marketers: write a campaign from a one-line brief
+## For marketers: the campaign builder (no install needed)
+
+Double-click `4_outputs/campaign_builder.html`. Pick an offer, a channel, who, and the reason in their note: you get the audience size, the finished message with the legal footer, and a PASS/FAIL brand check, with a button to copy the message.
+
+## Or from the terminal: write a campaign from a one-line brief
 
 ```
 python make_campaign.py "renewal discount by SMS for customers who mention a rival"
@@ -73,13 +77,14 @@ AI has never read sends that note to `4_outputs/review_queue.csv`, marked `unkno
 | `2_code/` | This README, `run.py`, `make_campaign.py`, `src/`, `requirements.txt`, `data/raw/` |
 | `3_ai_outputs/` | The AI's work, saved once: `sentence_labels.csv`, `copy_templates.json`, `how_we_did_it.md` |
 | `4_outputs/` | `RESULTS.xlsx` plus every table as CSV |
-| `5_finals/` | `slides.pdf`, `slides.html` |
+| `5_finals/` | `slides.pdf`, `slides.html`, `talk_script.md` (8-minute script + hard Q&A) |
 
 ## The files in `4_outputs/`
 
 | File | What it tells you |
 |---|---|
 | **RESULTS.xlsx** | All key tables, formatted, in one workbook |
+| **campaign_builder.html** | Clickable campaign builder for marketers |
 | customers_clean.csv | The clean customer table |
 | cleaning_log.csv | Every fix, with row counts before and after |
 | notes_read.csv | Every support note: topics, leave intent (0–3), reason, rival named |
@@ -104,7 +109,7 @@ AI has never read sends that note to `4_outputs/review_queue.csv`, marked `unkno
 | 4 Audit | `src/audit.py`, `src/compliance.py` | Contacted vs held-back customers, paid channel payback, brand and legal check of every past message |
 | 5 Campaigns | `src/campaigns.py` | One campaign per audience and offer, legal footer added, compliance checked |
 | 6 NT$ | `src/sizing.py` | Value ranges and the pilot, assumptions written down |
-| 7 Report | `src/report.py` | RESULTS.xlsx, the report, the slides and the charts |
+| 7 Report | `src/report.py` | RESULTS.xlsx, the report, slides, talk script, campaign builder and charts |
 
 ### The rules
 

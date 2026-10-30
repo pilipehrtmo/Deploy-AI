@@ -123,3 +123,18 @@ def pilot(members, bt, camps):
     per_save_margin = bill * CREDIT_MONTHS * MARGIN - 1.5 * offer_cost
     breakeven = fixed / (treated * p_leave * per_save_margin)
     return df, breakeven, per_msg
+
+
+def pilot_power(pilot_df, bt):
+    """What the pilot can prove. Two-group test, 95% confidence, 80% power.
+
+    Smallest churn gap (contacted vs held back) the pilot can reliably detect,
+    and the save rate that gap means.
+    """
+    p = churn_rate_from_backtest(bt, ["R1_leaving_now", "R2_wavering"])
+    row = pilot_df.iloc[0]
+    n_t, n_h = row["treated"], row["held_back_20pct"]
+    se = (p * (1 - p) * (1 / n_t + 1 / n_h)) ** 0.5
+    gap = 2.8 * se                      # 1.96 (95%) + 0.84 (80% power)
+    se45 = (p * (1 - p) * (2 / n_t + 2 / n_h)) ** 0.5   # day 45: about half the customers
+    return {"p_leave": p, "mde_gap": gap, "mde_save": gap / p, "noise_95": 1.96 * se, "noise_95_day45": 1.96 * se45}

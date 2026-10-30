@@ -98,7 +98,7 @@ def main():
 
     print("7/7 writing the readable report, workbook and slides")
     R = collect(subs, read, bt, members, flagged, scored, by_obj, roas, by_ch, ca, camp, val, pilot, breakeven,
-                log, camps, contacts, aud, seg)
+                log, camps, contacts, aud, seg, tickets)
     report.build(R, ROOT)
     print("  wrote 4_outputs/RESULTS.xlsx, 1_report/report.html, 5_finals/slides.html")
 
@@ -117,7 +117,7 @@ REASON_NAMES = {"price": "Price or a rival's offer", "contract": "Unsure about r
 
 
 def collect(subs, read, bt, members, flagged, scored, by_obj, roas, by_ch, ca, camp, val, pilot, breakeven,
-            log, camps, contacts, aud, seg):
+            log, camps, contacts, aud, seg, tickets):
     g = bt.groupby("rule")[["customers", "left_next_60d"]].sum().reset_index()
     allr = g.set_index("rule").loc["ALL_postpaid"]
     base = allr["left_next_60d"] / allr["customers"]
@@ -146,6 +146,9 @@ def collect(subs, read, bt, members, flagged, scored, by_obj, roas, by_ch, ca, c
     seg_plan["customers_full_base"] = seg_plan["customers"] * sizing.SCALE
 
     acq = sizing.acquisition_value(by_ch)
+    power = sizing.pilot_power(pilot, bt)
+    rivals, rival_themes = rival_view(read_raw_notes(tickets), subs)
+    acq_q = acquisition_quality(contacts, camps, subs, by_ch)
     roam_year = camps.loc[camps["objective"] == "roaming", "spend_twd"].sum() / 2
     vc = val.set_index(["objective", "scenario"])
     mixed = log.loc[log["step"].str.contains("contract_end"), "note"].iloc[0]
@@ -171,11 +174,70 @@ def collect(subs, read, bt, members, flagged, scored, by_obj, roas, by_ch, ca, c
         "monthly_mean": monthly["churn_rate"].mean(),
         "up_aud": int(members["audience"].str.startswith("upsell_").sum() * sizing.SCALE),
         "flag_fb": len(flagged) * sizing.SCALE,
+        "six_month_all": subs["churn_flag"].mean(),
+        "mde_gap": power["mde_gap"], "mde_save": power["mde_save"], "noise_95": power["noise_95"],
+        "noise_95_day45": power["noise_95_day45"],
+        "rival_sentences": int(rival_themes["sentences"].sum()),
+        "rival_customers": int(rivals["customers"].sum()),
+        "rival_churn_min": rivals["churn_6m"].min(), "rival_churn_max": rivals["churn_6m"].max(),
+        "r1_apr_n": int(bt[(bt.cutoff.astype(str) == "2026-04-01") & (bt.rule == "R1_leaving_now")]["customers"].iloc[0]),
+        "r1_apr_left": int(bt[(bt.cutoff.astype(str) == "2026-04-01") & (bt.rule == "R1_leaving_now")]["left_next_60d"].iloc[0]),
     }
     return {"K": K, "bt_pooled": g, "monthly_churn": monthly, "reasons": rs, "seg_plan": seg_plan,
             "roas": roas, "paid_by_ch": by_ch, "pilot": pilot, "val": val, "acq": acq, "camp": camp,
             "copy_audit": ca, "log": log, "aud": aud, "seg": seg,
-            "assump": pd.DataFrame(sizing.ASSUMPTIONS, columns=["key", "what", "value", "why"])}
+            "assump": pd.DataFrame(sizing.ASSUMPTIONS, columns=["key", "what", "value", "why"]),
+            "rivals": rivals, "rival_themes": rival_themes, "acq_q": acq_q, "members": members}
+
+
+RIVAL_THEMES = [  # first match wins
+    ("Already acting: quote, store visit, porting, signing", r"porting|port the|move the number|close to signing|picked up a quote|visited a|worked out a package"),
+    ("Rival gives more for the money", r"more data for the same|pay less for the same|better value|better deal|come out worse"),
+    ("Friends, family or colleagues switched", r"Coworkers|colleagues|team is now|Family members"),
+    ("Considering after seeing an offer", r"."),
+]
+
+
+def read_raw_notes(tickets):
+    rows = []
+    for t in tickets.itertuples():
+        for sen in notes.split_sentences(t.free_text_note):
+            m = re.search(notes.RIVALS, sen)
+            if m:
+                rows.append({"sub_id": t.sub_id, "rival": m.group(1), "sentence": notes.normalise(sen)})
+    return pd.DataFrame(rows, columns=["sub_id", "rival", "sentence"])
+
+
+def rival_view(r, subs):
+    """Which rivals customers name, why, and how many of them left."""
+    if r.empty:
+        return (pd.DataFrame(columns=["rival", "customers", "mentions", "churn_6m"]),
+                pd.DataFrame(columns=["theme", "sentences", "share"]))
+    def theme(s):
+        return next(name for name, pat in RIVAL_THEMES if re.search(pat, s))
+    r = r.assign(theme=r["sentence"].map(theme))
+    th = r.groupby("theme").size().reset_index(name="sentences").sort_values("sentences", ascending=False)
+    th["share"] = th["sentences"] / th["sentences"].sum()
+    per = r.drop_duplicates(["sub_id", "rival"]).merge(subs[["sub_id", "churn_flag"]], on="sub_id")
+    rv = per.groupby("rival").agg(customers=("sub_id", "nunique"), churn_6m=("churn_flag", "mean")).reset_index()
+    rv = rv.merge(r.groupby("rival").size().reset_index(name="mentions"), on="rival")
+    return rv.sort_values("customers", ascending=False), th
+
+
+def acquisition_quality(contacts, camps, subs, by_ch):
+    """New lines from paid campaigns (sample): how many were still with Formosa on 1 July 2026.
+
+    A new line missing from subscribers.csv was not a customer at any point in Jan-Jun 2026,
+    so it had already left: counted as gone.
+    """
+    p = contacts[contacts["attribution"].isin(["click_id", "store_code"])]
+    p = p.merge(camps[["campaign_id", "channel"]], on="campaign_id", suffixes=("_x", ""))
+    p = p.merge(subs[["sub_id", "churn_flag"]], on="sub_id", how="left")
+    p["still_with_us"] = p["churn_flag"].eq(0)
+    q = p.groupby("channel").agg(new_lines_sample=("sub_id", "size"), still_with_us=("still_with_us", "mean")).reset_index()
+    q = q.merge(by_ch[["channel", "cost_per_line"]], on="channel")
+    q["cost_per_line_still_with_us"] = q["cost_per_line"] / q["still_with_us"]
+    return q.sort_values("cost_per_line_still_with_us")
 
 
 def n_from(text):

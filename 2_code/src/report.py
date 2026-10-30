@@ -36,6 +36,10 @@ def pct(x, d=1):
     return f"{float(x) * 100:.{d}f}%"
 
 
+def pp(x, d=1):
+    return f"{float(x) * 100:.{d}f}"
+
+
 def n(x):
     return f"{int(round(float(x))):,}"
 
@@ -259,6 +263,10 @@ def build(R, root):
         f.write(html)
     with open(os.path.join(root, "5_finals", "slides.html"), "w", encoding="utf-8") as f:
         f.write(slides_html(R, K, ch))
+    with open(os.path.join(root, "5_finals", "talk_script.md"), "w", encoding="utf-8") as f:
+        f.write(talk_script(R, K))
+    with open(os.path.join(root, "4_outputs", "campaign_builder.html"), "w", encoding="utf-8") as f:
+        f.write(campaign_builder(R, os.path.join(root, "3_ai_outputs", "copy_templates.json")))
 
 
 RULE_NAMES = {"R1_leaving_now": "R1 · note: leaving now", "R2_wavering": "R2 · note: considering leaving",
@@ -317,8 +325,8 @@ reaches people who leave at {pct(K['ce_rate'])}: barely above average. Nobody re
 to pay back, and 2026 campaigns pay back slower than 2025. Add a welcome check-in: customers in their first six months leave at {pct(K['r3_rate'])} in 60 days, {K['r3_lift']:.1f}× the average.
 <b>Worth:</b> {twd(K['acq_low'])} to {twd(K['acq_high'])} more margin a year at NT$20–60M of paid spend.</p>
 <div class="ask"><b>The one decision:</b> approve a 90-day retention pilot for postpaid customers who tell support they may leave.
-Expected cost {twd(mid['total_cost'])} (at most {twd(K['pilot_cost_high'])}, inside the NT$2.5M budget). One in five flagged customers is held back at random so the result is proven, not guessed.
-It pays for itself if it keeps {pct(K['breakeven'])} of the customers who would otherwise leave. We stop at day 45 if it is not on track.</div>
+Expected cost {twd(mid['total_cost'])} (at most {twd(K['pilot_cost_high'])}, inside the NT$2.5M budget). One in five is held back at random to prove the result.
+It pays for itself if it keeps {pct(K['breakeven'])} of would-be leavers, and can prove a save rate of {pct(K['mde_save'])} or more. Paid offers stop at day 45 if contacted customers leave as often as held-back ones.</div>
 </div>""")
 
     # ---------------- Part 2 ----------------
@@ -357,11 +365,21 @@ Past campaigns overstate their effect: once compared with the control group, roa
 <p class="small">The note tiers are small but sharp: about 1 in 2 leave. They catch {pct(K['sig_share'])} of all leavers, because most leavers never call support. R3 widens the net at lower precision.</p>
 <h3>Why they leave</h3>
 {ch.img('3_reasons')}
+<h3>What customers say about rivals</h3>
+<p>Notes name a rival {n(K['rival_sentences'])} times. Customers who name one left at {pct(K['rival_churn_min'], 0)}–{pct(K['rival_churn_max'], 0)} in January–June, against {pct(K['six_month_all'], 0)} for all customers.
+More than a third are already acting (a quote, a store visit, a porting request), so speed matters more than the size of the offer.
+Where the rival simply offers more for the money, Data boost (NT$300) is the cheapest approved answer.</p>
+{table(R['rival_themes'], ['theme','sentences','share'], ['What the note says','Sentences','Share'], {'sentences': n, 'share': pct})}
+{table(R['rivals'], ['rival','customers','mentions','churn_6m'], ['Rival named','Customers (sample)','Mentions','Left Jan–Jun 2026'], {'customers': n, 'mentions': n, 'churn_6m': pct})}
 <h3>Room to earn more</h3>
 <p>{n(K['up_aud'])} customers at full scale asked about more data, a bigger plan or roaming in a note in the last 90 days. That is a short, warm list; past broad blasts went to tens of thousands with no reason to buy.</p>
 <h3>How acquisition performs</h3>
 {ch.img('5_paid')}
 {table(R['paid_by_ch'].sort_values('cost_per_line'), ['channel','campaigns','spend','new_lines','cost_per_line','margin_roas_6m','median_payback_months'], ['Channel','Campaigns','Spend','New lines','Cost per line','6-month margin return','Payback (months)'], {'campaigns': n, 'spend': twd, 'new_lines': n, 'cost_per_line': twd, 'margin_roas_6m': lambda v: f"{v:.2f}×", 'median_payback_months': lambda v: f"{v:.1f}"})}
+<h3>Do the new customers stay?</h3>
+<p>We followed the new lines each paid channel brought in (sample) to 1 July 2026. Between {pct(R['acq_q']['still_with_us'].min(), 0)} and {pct(R['acq_q']['still_with_us'].max(), 0)} were still customers, so no channel brings in clearly worse customers.
+Counting only customers who stayed, Google Search is still the cheapest. The sample is small (about 90–160 lines per channel), so the gaps between channels are indicative only.</p>
+{table(R['acq_q'], ['channel','new_lines_sample','still_with_us','cost_per_line','cost_per_line_still_with_us'], ['Channel','New lines (sample)','Still a customer 1 Jul','Cost per new line','Cost per customer who stayed'], {'new_lines_sample': n, 'still_with_us': pct, 'cost_per_line': twd, 'cost_per_line_still_with_us': twd})}
 </div>""")
 
     # ---------------- Part 4 ----------------
@@ -429,12 +447,14 @@ The pilot is built so this mistake cannot happen again: 20% held back at random 
 <tr><td>Offers</td><td>Renewal discount, Data boost or Device credit by reason; billing and network problems fixed, not discounted.</td></tr>
 <tr><td>Cost</td><td>{twd(mid['total_cost'])} expected (messages {twd(mid['messaging_cost'])}, offers {twd(mid['offer_cost'])}, creative {twd(mid['creative_cost'])}); at most {twd(K['pilot_cost_high'])}. Hard cap NT$2.5M: offers stop when the cap is reached.</td></tr>
 <tr><td>Expected</td><td>Keep {n(p.iloc[0]['customers_kept'])}–{n(p.iloc[2]['customers_kept'])} customers; credited revenue {twd(p.iloc[0]['credited_revenue'])}–{twd(p.iloc[2]['credited_revenue'])}.</td></tr>
-<tr><td>Break-even</td><td>Keep {pct(K['breakeven'])} of would-be leavers, i.e. churn in the contacted group {pct(K['breakeven_gap'], 2)} points below the held-back group.</td></tr>
-<tr><td>Stop rule</td><td>Day 45: if the contacted group's churn is not at least {pct(K['breakeven_gap'], 2)} points below the held-back group, stop offers and keep only care calls.</td></tr>
+<tr><td>Break-even</td><td>Keep {pct(K['breakeven'])} of would-be leavers: churn in the contacted group {pp(K['breakeven_gap'], 2)} percentage points below the held-back group.</td></tr>
+<tr><td>What it can prove</td><td>With {n(mid['held_back_20pct'])} held back, chance alone moves the gap by up to ±{pp(K['noise_95'], 1)} percentage points. The pilot can reliably prove a gap of {pp(K['mde_gap'], 1)} percentage points or more, i.e. a save rate of {pct(K['mde_save'])} or more (95% confidence, 80% power). A save rate between {pct(K['breakeven'])} and {pct(K['mde_save'])} would still make money but cannot be proven in 90 days.</td></tr>
+<tr><td>Day 45 check</td><td>Stop paid offers (keep care calls) if the contacted group's churn is not below the held-back group's. At day 45 noise is about ±{pp(K['noise_95_day45'], 1)} percentage points, so this checks the direction only, not the size.</td></tr>
+<tr><td>Day 90 verdict</td><td>Gap of {pp(K['mde_gap'], 1)} percentage points or more: proven, scale to the full base. Gap above zero but smaller: profitable but unproven, extend 90 days to add customers. Gap at or below zero: stop.</td></tr>
 <tr><td>Measure</td><td>Churn within 60 days of contact, contacted vs held back; offer cost per kept customer; take-up by offer and channel.</td></tr></table>
 {ch.img('6_pilot')}
 <h3>Risks</h3>
-<ul><li><b>Save rate unknown.</b> Formosa has never run reason-matched retention. The held-back group measures it.</li>
+<ul><li><b>Save rate unknown.</b> Formosa has never run reason-matched retention. The held-back group measures it, but only effects of {pct(K['mde_save'], 0)} or more can be proven in 90 days.</li>
 <li><b>Offers taken by people who would have stayed.</b> Costed at 1.5 takers per customer kept.</li>
 <li><b>Coverage.</b> Notes catch about {pct(K['sig_share'], 0)} of leavers. Next phase: the R3 welcome check-in, and asking agents to log every contact.</li>
 <li><b>Call centre capacity.</b> 2,000 calls a month; the rest go to LINE and SMS, so the result is measured by channel.</li></ul>
@@ -465,7 +485,7 @@ Vivian needs to know who is leaving, who will buy more, and which acquisition pa
     s.append(f"""<div class="s"><div class="n">3 / 6</div><h1>Who to target, and why</h1><div class="cols"><div>{ch.img('3_reasons')}</div>
 <div><ul><li><b>R1 leaving now</b>: porting, cancelling, signing elsewhere → call first</li><li><b>R2 wavering</b>: comparing, unsure on renewal → call or LINE/SMS</li>
 <li><b>R3 new</b> (&lt; 6 months, {K['r3_lift']:.1f}× churn) → welcome check-in</li><li><b>R4 unhappy</b> → fix the bill or the network</li>
-<li><b>Earn more</b>: only customers who asked ({n(K['up_aud'])} at full scale)</li></ul></div></div></div>""")
+<li><b>Earn more</b>: only customers who asked ({n(K['up_aud'])} at full scale)</li><li>Rival named in a note → {pct(K['rival_churn_min'], 0)}–{pct(K['rival_churn_max'], 0)} left; a third already getting quotes or porting</li></ul></div></div></div>""")
     s.append(f"""<div class="s"><div class="n">4 / 6</div><h1>The campaigns</h1><div class="cols"><div><ul>
 <li>Reason → approved offer: rival/price → Renewal discount or Data boost; device → Device credit</li><li>Billing and network: fix it, no discount</li>
 <li>Stop roaming blasts ({twd(K['roam_spend_year'])}/yr, no effect)</li><li>Every message: legal footer + automatic compliance check</li>
@@ -473,8 +493,129 @@ Vivian needs to know who is leaving, who will buy more, and which acquisition pa
 <div class="k"><b>{twd(K['churn_low'])}–{twd(K['churn_high'])}</b>a year, retention<br><br><b>{twd(K['up_low'])}–{twd(K['up_high'])}</b>a year, earn more<br><br><b>{twd(K['acq_low'])}–{twd(K['acq_high'])}</b>a year, acquisition shift</div></div></div>""")
     s.append(f"""<div class="s"><div class="n">5 / 6</div><h1>The 90-day pilot</h1><div class="cols"><div style="flex:1.4">{ch.img('6_pilot')}</div>
 <div><div class="k"><b>{twd(mid['total_cost'])}</b>expected cost, max {twd(K['pilot_cost_high'])}</div><div class="k"><b>{pct(K['breakeven'])}</b>of would-be leavers kept = break-even</div>
-<div class="k"><b>20%</b>held back at random; stop at day 45 if not on track</div></div></div></div>""")
+<div class="k"><b>{pct(K['mde_save'], 0)}+</b>save rate the pilot can prove in 90 days (20% held back)</div></div></div></div>""")
     s.append(f"""<div class="s"><div class="n">6 / 6</div><h1>Our recommendation</h1><div class="ask">Approve the 90-day retention pilot: {twd(mid['total_cost'])} expected, inside NT$2.5M,
 for postpaid customers who tell support they may leave.</div><ul><li>Week 1: connect the weekly notes file; first call list to the call centre</li>
-<li>Day 45: check contacted vs held-back churn against the break-even</li><li>Day 90: decide to scale retention to the full base, and redirect roaming and broad upsell spend</li></ul></div>""")
+<li>Day 45: stop paid offers if contacted customers leave as often as held-back ones</li><li>Day 90: proven if the gap is {pp(K['mde_gap'], 1)} percentage points or more</li><li>Then: scale retention to the full base; redirect roaming and broad upsell spend</li></ul></div>""")
     return f"<!DOCTYPE html><html><head><meta charset='utf-8'><title>Finals slides</title><style>{css}</style></head><body>{''.join(s)}</body></html>"
+
+
+# ---------- finals talk script ----------
+
+def talk_script(R, K):
+    mid = R["pilot"][R["pilot"]["scenario"] == "mid"].iloc[0]
+    worst = mid["offer_cost"] / 2 + mid["messaging_cost"] + mid["creative_cost"]
+    return f"""# Finals talk script (8 minutes) and Q&A
+
+Two presenters: **A** (story, slides 1, 2, 6) and **B** (method, slides 3, 4, 5). About 80 seconds a slide.
+Every number below comes from the pipeline output; rerun `python run.py` and this file updates.
+
+## Slide 1 · The problem and our approach (A)
+"In the three months before 1 April, {K['r1_apr_n']} postpaid customers in our 1-in-130 sample, about {n(K['r1_apr_n'] * 130)} across Formosa,
+told a support agent they were cancelling, porting their number or signing with a rival. {K['r1_apr_left']} of those {K['r1_apr_n']} were gone within 60 days.
+Nobody at Formosa reads these notes. Vivian asked who is leaving, why, and what keeps them. Her customers are already telling her."
+
+## Slide 2 · What the data shows (A)
+- Customers whose notes show leave intent: {pct(K['sig_rate'])} leave within 60 days. Average: {pct(K['base_rate'])}.
+- Today's renewal push (contracts ending within 4 months): {pct(K['ce_rate'])}. Barely better than picking at random.
+- We tested this on three past dates using only notes written before each date, so it is not hindsight.
+- Roaming blasts: no extra sales against the held-back group.
+
+## Slide 3 · Who to target, and why (B)
+- R1 leaving now and R2 wavering: call the highest bills first, then LINE and SMS.
+- The reason decides the offer: price or a rival → Renewal discount or Data boost; phone problem → Device credit; bill error or bad signal → fix it, no discount.
+- Rivals are named {n(K['rival_sentences'])} times; those customers left at {pct(K['rival_churn_min'], 0)}–{pct(K['rival_churn_max'], 0)}. A third were already getting quotes or porting, so speed beats discount size.
+
+## Slide 4 · The campaigns (B)
+- Every message: approved offer, legal footer added by code, automatic compliance check. {K['bad_copy']} of {K['all_copy']} past campaigns would have failed it.
+- Worth a year at full scale: retention {twd(K['churn_low'])}–{twd(K['churn_high'])}; earn more {twd(K['up_low'])}–{twd(K['up_high'])}; acquisition shift {twd(K['acq_low'])}–{twd(K['acq_high'])}.
+- Live demo (30 seconds): open `4_outputs/campaign_builder.html`, pick Renewal discount + SMS + "Price or a rival", show the audience size and the PASS.
+
+## Slide 5 · The 90-day pilot (B)
+- About {n(mid['flagged_full_base_90d'])} flagged postpaid customers; one in five held back at random.
+- Expected cost {twd(mid['total_cost'])}, at most {twd(K['pilot_cost_high'])}, inside NT$2.5M.
+- Break-even: keep {pct(K['breakeven'])} of would-be leavers. The pilot can prove {pct(K['mde_save'])} or more.
+- Day 45: if contacted customers leave as often as held-back ones, paid offers stop.
+
+## Slide 6 · Our recommendation (A)
+"Approve the pilot. Week one, we connect the weekly notes file and send the first call list.
+Day 45, we check direction. Day 90, if the gap is {pp(K['mde_gap'], 1)} percentage points or more, scale it to the whole base and move roaming and broad upsell money into it."
+
+---
+
+## Hard questions, short answers
+
+**What if the save rate is zero?**
+Then we find out cheaply. Offers cost money only when taken; the day-45 check stops them. Worst case is roughly half the expected offer cost plus messages and creative, about {twd(worst)}, and Formosa learns that note-based retention does not work at these offers.
+
+**Why rules and not a machine-learning model?**
+Customers the rules flag leave {K['sig_lift']:.0f}× more often than average on dates the rules never saw, a marketer can read and change them, and every customer comes with a reason that decides the offer. A model on 50,000 rows whose plan and contract fields show only the latest values would risk learning the future.
+
+**How do you know the AI read the notes correctly?**
+It labelled 403 distinct sentences, not 8,000 notes, so every label can be checked by a person. We checked [fill in: agreement % from your hand check]. The outcome agrees: flagged customers left at {pct(K['sig_rate'])}. Any sentence it has never seen goes to a review queue as "unknown".
+
+**Notes catch only {pct(K['sig_share'], 0)} of leavers. Isn't that small?**
+It is the precise part: about 1 in 2 flagged customers leave. Most leavers never call support. Next: the welcome check-in for new customers ({K['r3_lift']:.1f}× average churn) and asking agents to log every contact.
+
+**Why multiply by 130?**
+The fact sheet says the customer files are a fair 1-in-130 sample of 6.5 million customers.
+
+**Can you trust the past-campaign audit?**
+Since July 2025 one in five chosen customers was held back at random. We compare only those campaigns, and only contacts whose 30-day tracking window had finished.
+
+**Isn't Renewal discount expensive?**
+It goes only to customers within four months of contract end who raised price or renewal. Customers who only want more data get Data boost at NT$300.
+
+**Why can't the pilot prove the break-even?**
+With {n(mid['held_back_20pct'])} held back, chance alone moves the result by about ±{pp(K['noise_95'], 1)} percentage points, more than the {pct(K['breakeven_gap'], 2)}-point break-even gap. We say so up front and give a rule for each outcome instead of over-promising.
+"""
+
+
+# ---------- clickable campaign builder ----------
+
+def campaign_builder(R, templates_path):
+    """One self-contained page: pick offer, channel, tier, reason → audience size, message, compliance."""
+    import json
+    from compliance import FOOTER, SHORT_FOOTER, BANNED
+    m = R["members"].copy()
+    m["reason"] = m["reasons"].fillna("").map(lambda r: next((x for x in ["contract", "price", "device", "billing", "network", "data_need"] if x in r.split(";")), "other"))
+    counts = m.groupby(["offer", "tier", "reason"]).size().reset_index(name="n").to_dict("records")
+    with open(templates_path, encoding="utf-8") as f:
+        tpl = json.load(f)
+    data = {"counts": counts, "templates": {k: v for k, v in tpl.items() if not k.startswith("_")},
+            "footer": FOOTER, "short": SHORT_FOOTER, "banned": BANNED,
+            "share": {"SMS": 0.74, "LINE": 0.41, "Email": 0.33, "App Push": 0.27, "Outbound Call": 0.92}}
+    return """<!DOCTYPE html><html><head><meta charset="utf-8"><title>Formosa campaign builder</title>
+<style>body{font-family:'Segoe UI',Arial,sans-serif;color:#1f2933;max-width:900px;margin:24px auto;padding:0 16px}
+h1{color:#0b6e99;font-size:22px}label{display:block;font-size:13px;color:#52606d;margin-top:10px}
+select{width:100%;padding:8px;font-size:14px;border:1px solid #cbd2d9;border-radius:6px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{border:1px solid #e4e7eb;border-radius:8px;padding:14px;margin-top:16px}
+.big{font-size:26px;color:#0b6e99;font-weight:600}.msg{white-space:pre-wrap;background:#f5f7fa;padding:12px;border-radius:6px;font-size:14px}
+.pass{color:#2f855a;font-weight:600}.fail{color:#c53030;font-weight:600}button{padding:8px 14px;border:0;border-radius:6px;background:#0b6e99;color:#fff;cursor:pointer}</style></head>
+<body><h1>Formosa campaign builder</h1><p>Pick an approved offer and a channel. You get the audience, the finished message with the legal footer, and a brand check. Works offline.</p>
+<div class="grid"><div><label>Offer</label><select id="offer"></select></div><div><label>Channel</label><select id="channel"></select></div>
+<div><label>Who</label><select id="tier"></select></div><div><label>Reason in their note</label><select id="reason"></select></div></div>
+<div class="card"><div class="big" id="size"></div><div id="sizeNote"></div></div>
+<div class="card"><b id="head"></b><div class="msg" id="body"></div><p><b>Call to action:</b> <span id="cta"></span></p>
+<p id="check"></p><button onclick="navigator.clipboard.writeText(document.getElementById('head').innerText+'\\n\\n'+document.getElementById('body').innerText)">Copy message</button></div>
+<script>const D=""" + json.dumps(data) + """;
+const TIERS={any:"Anyone with this offer",R1_leaving_now:"R1 · said they are leaving",R2_wavering:"R2 · considering leaving",R3_new_and_fragile:"R3 · joined < 6 months ago",R4_unhappy_quiet:"R4 · complaint, no leave talk"};
+const REASONS={any:"Any reason",contract:"Unsure about renewing",price:"Price or a rival",device:"Phone problem",billing:"Bill looks wrong",network:"Coverage or speed",data_need:"Runs out of data",other:"Other"};
+const RT={contract:"they are unsure about renewing",price:"they felt the plan is expensive or that a rival offers more",billing:"their bill looked wrong",network:"signal problems",device:"a problem with their phone",data_need:"running out of data"};
+const $=id=>document.getElementById(id);
+function fill(id,obj){$(id).innerHTML=Object.entries(obj).map(([k,v])=>`<option value="${k}">${v}</option>`).join("")}
+fill("offer",Object.fromEntries(Object.keys(D.templates).map(k=>[k,k])));fill("channel",Object.fromEntries(Object.keys(D.share).map(k=>[k,k])));fill("tier",TIERS);fill("reason",REASONS);
+function check(h,b,c,ch){const p=[];const t=[h,b,c].join(" ");const end=b.trim();
+ if(!(end.endsWith(D.footer)||((ch==="SMS"||ch==="LINE")&&end.endsWith(D.short))))p.push("legal footer missing or altered");
+ for(const[k,re]of Object.entries(D.banned)){if(new RegExp(re,"i").test(t)&&!(k.startsWith("fastest")&&/independent|20\\d\\d/i.test(t)))p.push("banned claim: "+k)}
+ if((t.match(/!/g)||[]).length>=2)p.push("stacked exclamation marks");return p}
+function update(){const o=$("offer").value,ch=$("channel").value,ti=$("tier").value,re=$("reason").value,T=D.templates[o];
+ const n=D.counts.filter(r=>r.offer===o&&(ti==="any"||r.tier===ti)&&(re==="any"||r.reason===re)).reduce((a,r)=>a+r.n,0);
+ $("size").innerText=(n*130).toLocaleString()+" customers";
+ $("sizeNote").innerText=`${n} in the sample × 130. About ${Math.round(n*130*D.share[ch]).toLocaleString()} can be reached on ${ch} (${Math.round(D.share[ch]*100)}% have agreed).`+(n?"":" Nobody matches: widen Who or Reason.");
+ let body;if(ch==="Outbound Call"){body=(T.call_script||T.body).replace("{reason_text}",RT[re]||"their recent contact with us")}
+ else{const f=(ch==="SMS"||ch==="LINE")?D.short:D.footer;body=(ch==="SMS"?"Formosa: "+T.body+" "+T.cta+".":T.body)+"\\n\\n"+f}
+ $("head").innerText=T.headline;$("body").innerText=body;$("cta").innerText=T.cta;
+ const p=ch==="Outbound Call"?[]:check(T.headline,body,T.cta,ch);
+ $("check").innerHTML=ch==="Outbound Call"?'<span class="pass">Call script</span> · agents read the terms on request':(p.length?'<span class="fail">FAIL</span> · '+p.join("; "):'<span class="pass">PASS</span> · approved offer, legal footer verbatim, no banned claims')}
+["offer","channel","tier","reason"].forEach(i=>$(i).onchange=update);update();</script></body></html>"""
