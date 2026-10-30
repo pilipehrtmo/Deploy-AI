@@ -1,0 +1,13 @@
+﻿objective,channel,treated_n,holdout_n,treated_conv_rate,holdout_conv_rate,treated_rev_per_head,holdout_rev_per_head,incremental_rev_per_head,share_of_reported_that_is_real
+roaming,App Push,1667,417,0.0036,0.0024,4.47,3.49,0.99,0.2204
+roaming,Email,1614,403,0.0025,0.005,3.53,5.36,-1.83,0.0
+roaming,LINE,1563,391,0.0032,0.0026,2.05,1.6,0.46,0.2229
+roaming,SMS,2355,589,0.0042,0.0034,4.87,5.1,-0.23,0.0
+upsell,App Push,15012,3750,0.0038,0.0021,5.9,3.3,2.59,0.4397
+upsell,Email,5946,1487,0.0034,0.0027,7.16,5.72,1.45,0.2021
+upsell,LINE,10031,2509,0.0035,0.0012,6.51,2.58,3.92,0.6032
+upsell,SMS,7054,1765,0.0033,0.0017,5.11,2.84,2.27,0.4439
+winback,Email,258,65,0.0116,0.0,55.37,0.0,55.37,1.0
+winback,LINE,384,96,0.0078,0.0104,32.55,37.75,-5.2,0.0
+winback,Outbound Call,189,47,0.0053,0.0,21.08,0.0,21.08,1.0
+winback,SMS,82,20,0.0122,0.0,49.18,0.0,49.18,1.0

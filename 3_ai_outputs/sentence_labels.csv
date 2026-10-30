@@ -1,0 +1,404 @@
+sentence,topic,leave_intent
+Repeat contact on an open matter.,filler,0
+Message came in over in-app chat.,filler,0
+"Walk-in at a branch, written up by the counter team.",filler,0
+Inbound call to the service line.,filler,0
+Held open until we hear back.,filler,0
+Customer called in this afternoon.,filler,0
+Account holder on the line.,filler,0
+Contact logged during the afternoon shift.,filler,0
+Requested the next step by email.,filler,0
+Customer called during business hours.,filler,0
+Second call from this customer in a month.,filler,0
+Left open for follow-up.,filler,0
+Customer reached us through the app chat.,filler,0
+Expecting a reply.,filler,0
+Asked for a note to be added to the account.,filler,0
+Waiting on a response.,filler,0
+Customer got in touch about their service.,filler,0
+Requested a callback.,filler,0
+Follow-up contact from an existing customer.,filler,0
+Wants the next step confirmed in writing.,filler,0
+Asked us to note this on the account.,filler,0
+Call taken on the main service line.,filler,0
+Customer rang the support line.,filler,0
+Customer came into a branch in person.,filler,0
+Asked how soon we would come back to them.,filler,0
+Asked for written confirmation of what happens next.,filler,0
+Wants someone to call them back.,filler,0
+Wants the conversation recorded on file.,filler,0
+"Store visit, logged by the counter staff.",filler,0
+Case left open pending a response.,filler,0
+Asked for a callback.,filler,0
+Contact arrived through the chat channel.,filler,0
+Customer called about their account.,filler,0
+This month's bill came to NT$<N> well above what they normally pay.,bill_shock,0
+Says the total does not match what they were quoted.,billing_error,0
+Latest invoice is NT$<N> which they say is far higher than usual.,bill_shock,0
+Moved house and needs invoices sent to the new address.,billing_admin,0
+Wants an explanation of an administration charge.,billing_error,0
+Mobile data has become very slow.,data_speed,0
+Wants confirmation of which add-on services are being billed.,billing_admin,0
+Asked to stop paper bills and receive them by email.,billing_admin,0
+A bill of NT$<N> this month is what triggered the call.,bill_shock,0
+Password reset needed before they can open the statement.,app_login,0
+Wants the arithmetic behind the monthly charge explained.,billing_admin,0
+Barely gets one bar of signal inside the building.,coverage,0
+Wants to know what pushed this month's charge up.,bill_shock,0
+Asked for a breakdown of the optional services on the account.,billing_admin,0
+Asked for the company name on the invoice to be fixed.,billing_admin,0
+Not sure which extras they are paying for.,billing_admin,0
+Asked whether there is a known fault in their area.,coverage,0
+Reports a complete dead spot in the building basement.,coverage,0
+Signal at home drops several times a day.,coverage,0
+Expected a lower figure and wants the difference explained.,bill_shock,0
+Asked where the nearest network site is.,coverage,0
+Believes the amount charged does not match the plan.,billing_error,0
+Cannot log in to view the online bill after forgetting the password.,app_login,0
+Charged amount is higher than they expected.,bill_shock,0
+Requested a payment plan for an unusually large bill.,bill_shock,0
+Asked which dates this billing period covers.,billing_admin,0
+Asked us to update the billing address.,billing_admin,0
+Asked whether the balance can be paid in installments.,payment_issue,0
+Data speeds have dropped noticeably in the last month.,data_speed,0
+Says the total jumped this month with no change in usage.,bill_shock,0
+Bill is higher than usual and they want the extra charge explained.,bill_shock,0
+Says this month's bill looks wrong and wants it checked.,billing_error,0
+Flagged an error on the latest invoice.,billing_error,0
+Says the connection is lost every morning on the way in.,coverage,0
+Wants to know when the billing cycle starts and ends.,billing_admin,0
+Two identical payments appear on the statement.,billing_error,0
+Says the service was fine until they relocated.,coverage,0
+Requested an engineer to look at coverage locally.,coverage,0
+Reports crackling and echo on calls.,coverage,0
+Asked why the card on file was declined.,payment_issue,0
+Asked for an overpayment to be returned.,billing_admin,0
+Wants to switch to electronic billing.,billing_admin,0
+Says the signal only works near a window.,coverage,0
+Loses the network entirely underground.,coverage,0
+Calls cut out on the same stretch of road every day.,coverage,0
+New address has far weaker signal than the old one.,coverage,0
+Asked whether a mast nearby is out of service.,coverage,0
+Call quality changes through the day.,coverage,0
+Wants the outstanding balance on the handset.,device_upgrade,0
+Queried a line item they did not recognise.,billing_error,0
+Called the plan bad value and asked to terminate.,price_value,3
+Handset fault appeared just after the warranty ended.,device_fault,0
+Requested information about local coverage plans.,coverage,0
+Unclear about the cut-off date for the current cycle.,billing_admin,0
+Reports dead zones along the train route they use.,coverage,0
+Wants to spread this month's bill over several payments.,payment_issue,0
+Phone overheats while charging.,device_fault,0
+Wants the credit balance paid back rather than carried forward.,billing_admin,0
+Loses coverage while travelling for work.,coverage,0
+Reports repeated dropouts at the home address.,coverage,0
+Screen flickers on a phone still being paid off.,device_fault,0
+Asked what a service fee on the bill covers.,billing_admin,0
+Billing address on file is out of date.,billing_admin,0
+Coverage got worse after they moved.,coverage,0
+Invoice is being issued to the wrong person.,billing_error,0
+Name on the invoice is wrong and needs correcting.,billing_error,0
+Signal drops at several points on their commute.,coverage,0
+Asked us to investigate coverage around their address.,coverage,0
+Reports a duplicate charge on the account.,billing_error,0
+Says the line goes dead at home most evenings.,coverage,0
+Thinking about ending the contract and wanted to talk it through.,cancel,1
+Indoor reception is very weak.,coverage,0
+Handset is dead and will not power up.,device_fault,0
+Queried how the discount is applied to the monthly fee.,billing_admin,0
+Wants the smallest plan that still covers their usage.,wants_cheaper_plan,0
+Says the connection fails whenever they are out of the city.,coverage,0
+Says calls break up at peak times.,coverage,0
+Signal drops on the road between cities.,coverage,0
+Wants a network check for their neighbourhood.,coverage,0
+Coverage at home cuts out during calls.,coverage,0
+Voice quality is fine in the morning and poor by evening.,coverage,0
+Asked how the contract fee is calculated.,billing_admin,0
+Asked whether the handset can be settled early.,device_upgrade,0
+Says last month's payment was taken twice.,billing_error,0
+Phone stopped turning on and needs repair.,device_fault,0
+Found the renewal offer weak and hinted they may leave.,renewal_doubt,2
+Requested e-billing on the account.,billing_admin,0
+No signal at all in the basement car park.,coverage,0
+Asked us to deactivate this number.,cancel,3
+Locked out of the billing portal and needs a reset.,app_login,0
+Wants a trade-in quote before upgrading.,device_upgrade,0
+Streaming stalls constantly on the mobile connection.,data_speed,0
+Running out of data every month and wants a bigger bundle.,wants_more_data,0
+Signal quality dropped after a house move.,coverage,0
+Interested in bringing a relative onto the family plan.,family_lines,0
+Wants a monthly bill instead of buying credit.,prepaid_to_postpaid,0
+Direct debit did not go through.,payment_issue,0
+Says browsing is unusable on mobile data.,data_speed,0
+Will shop around before deciding whether to renew.,renewal_doubt,1
+Reports a manufacturing fault on a new device.,device_fault,0
+Battery is swollen and the phone needs servicing.,device_fault,0
+Says <RIVAL> gives more data for the same money.,competitor,1
+Asked about loaner options while waiting for a repair.,device_fault,0
+Lost the phone and needs a replacement SIM.,device_fault,0
+"Handset stolen, and they want the line protected.",device_fault,0
+Automatic payment failed and they want to know why.,payment_issue,0
+Data allowance runs out well before month end.,wants_more_data,0
+Coverage is unreliable on their regular work route.,coverage,0
+Mentioned that rival promotions look far better than ours.,competitor,1
+Wants to know which mast serves their address.,coverage,0
+Wants a recommendation based on how they actually use the phone.,plan_question,0
+Has a credit on the account and would like it refunded.,billing_admin,0
+Asked us to quote the termination charge before they decide.,cancel,2
+Has been comparing offers from other providers.,competitor,1
+Asked how our pricing stacks up against the rest of the market.,price_value,1
+Reception indoors is poor and calls fail.,coverage,0
+Weighing up whether to renew when the term ends next month.,renewal_doubt,1
+"New service is live elsewhere, so they asked us to shut this number down.",port_out,3
+Also asked us to compare this against what other providers charge.,competitor,1
+Phone was lost and they asked what to do next.,device_fault,0
+Interested in a bundle that includes streaming.,plan_question,0
+Says the price has gone up once too often and is ready to leave.,price_value,2
+Wants to hand the line over to a relative.,account_admin,0
+Wants to know why roaming was billed when they used hotel wifi.,roaming_problem,0
+Phone has failed and they need a loan device.,device_fault,0
+States plainly that they want to cancel their service.,cancel,3
+Wants the number switched off at the end of the billing cycle.,cancel,3
+Starting university and asked about student pricing.,student,0
+Asked what their old phone is worth as a trade-in.,device_upgrade,0
+Asked for the status of an issue they reported earlier.,follow_up,0
+Says the replacement line is already active and this one is redundant.,line_closing_no_save,3
+Asked whether a reported problem has been fixed.,follow_up,0
+Chasing an open case.,follow_up,0
+Coworkers switched to <RIVAL> and they are considering the same.,competitor,1
+Needs the call allowance on the plan adjusted.,plan_question,0
+Monthly charge keeps creeping up and they are ready to switch.,price_value,2
+Asked to move down a tier without changing the number.,wants_cheaper_plan,0
+Touchscreen has stopped responding on their device.,device_fault,0
+Interested in switching from top-ups to a fixed plan.,prepaid_to_postpaid,0
+Has already opened a line with another provider and wants this one closed.,port_out,3
+Says most of their team is now on <RIVAL>.,competitor,1
+Wants to know whether an out-of-warranty fix is worth it.,device_fault,0
+Says a <RIVAL> shop already worked out a package for them.,competitor,2
+Warned that the account goes elsewhere unless the charges are corrected.,billing_error,2
+Wants a cheaper monthly plan while keeping the same number.,wants_cheaper_plan,0
+Heard from friends that <RIVAL> is the better deal.,competitor,1
+Wants to know whether the number can be kept once the line closes.,port_out,2
+Display is cracked on a phone bought through us.,device_fault,0
+Wants to compare other carriers before committing to a renewal.,renewal_doubt,1
+Wants to drop the call bundle they never use.,wants_cheaper_plan,0
+Flying out shortly and wants the line to work abroad.,roaming_interest,0
+"Coverage is the deciding factor, and they leave if it does not improve.",coverage,2
+Asked which handsets are available on their plan.,device_upgrade,0
+Needs a stopgap phone while theirs is in for service.,device_fault,0
+Phone shut down and has not come back on.,device_fault,0
+Asked whether invoices can be downloaded from the app.,billing_admin,0
+Disputes a roaming fee from a recent journey.,roaming_problem,0
+Wants to add a line for a family member.,family_lines,0
+Requested deactivation of the line and asked how quickly it takes effect.,cancel,3
+Frustrated that the bill rises every year and says they will move.,price_value,2
+New handset arrived with a defect and they want an exchange.,device_fault,0
+Looking to reduce the monthly cost of the plan.,wants_cheaper_plan,0
+Wants a plan with more mobile data.,wants_more_data,0
+Asked about the cost of a fourth line on the account.,family_lines,0
+"Long-standing customer, now seriously considering another carrier.",competitor,2
+Not sure whether the roaming package took effect.,roaming_problem,0
+Asked us to show better-value options within our own range.,wants_cheaper_plan,0
+Asked what phone upgrade offers are available.,device_upgrade,0
+Checking whether a new plan starts immediately.,plan_question,0
+Considering a move to <RIVAL> after seeing their latest offer.,competitor,1
+Says the contract is nearly up and they have not decided whether to stay.,renewal_doubt,1
+Asked what hours customer support is open.,account_admin,0
+Says the renewal terms are not good enough to keep them.,renewal_doubt,2
+Handset battery drains within a few hours.,device_fault,0
+Asked about a package with more minutes.,plan_question,0
+Wants to know whether the roaming pass is fast enough for video calls.,roaming_interest,0
+Says they are not getting what they pay for and wants out.,price_value,2
+Contract expires shortly and they are undecided about renewing.,renewal_doubt,1
+Says there is no reception below street level.,coverage,0
+Wanted the steps and documents needed to close the account.,cancel,3
+Intends to let the contract lapse rather than renew.,renewal_doubt,2
+Wants confirmation that a fault ticket is still open.,follow_up,0
+Wants to know the trade-up options on a new handset.,device_upgrade,0
+Wants to set up a number for a child.,family_lines,0
+Wants to transfer a family member's number after a bereavement.,line_closing_no_save,0
+Asked us to activate roaming before a trip.,roaming_interest,0
+Wants to close the account and asked what happens to the final bill.,cancel,3
+Checking whether a student discount applies to them.,student,0
+Not impressed by the retention offer and is looking around.,renewal_doubt,2
+Says they will move next month if the billing problem is not fixed.,billing_error,2
+Asked what a contract plan would cost compared with prepaid.,prepaid_to_postpaid,0
+Wants to check the contact number we hold.,account_admin,0
+Asked what a repair costs outside warranty.,device_fault,0
+Asked to swap a phone that failed within days.,device_fault,0
+Asked about moving to a larger data allowance.,wants_more_data,0
+Asked whether they qualify for the student plan.,student,0
+Asked how quickly an upgrade goes live.,plan_question,0
+Asked when a plan change would take effect.,plan_question,0
+Says they will switch carriers if the coverage stays this bad.,coverage,2
+Asked whether a temporary handset is available during repair.,device_fault,0
+Wants to stop paying for extra data every month.,wants_cheaper_plan,0
+Asked how to block a missing device.,device_fault,0
+Device was faulty out of the box.,device_fault,0
+Checking whether support is available at weekends.,account_admin,0
+Unclear how much data abroad will cost.,roaming_interest,0
+Screen fault on a handset still under installment.,device_fault,0
+Feels the plan is poor value and wants to cancel.,price_value,3
+Warranty has expired and they need repair options.,device_fault,0
+Wants to know the points balance on the account.,loyalty_points,0
+Says they will not stay past the end of the contract term.,renewal_doubt,2
+Asked whether we have a family plan.,family_lines,0
+Device will not start even after charging.,device_fault,0
+Wants to know the eligibility rules for the student rate.,student,0
+Asked how long the number stays reserved after cancelling.,port_out,2
+Says the bill from the trip is far more than expected.,roaming_problem,0
+Interested in unlimited data.,wants_more_data,0
+Asked us to confirm the Japan roaming pass is active.,roaming_interest,0
+Asked how mobile data roaming is charged.,roaming_interest,0
+Asked for time to look at other providers before renewal.,renewal_doubt,1
+Interested in a plan weighted to calls rather than data.,plan_question,0
+Says they are thinking about switching to <RIVAL>.,competitor,1
+Says friends on <RIVAL> pay less for the same usage.,competitor,1
+Buys top-ups regularly and wants a bigger plan instead.,prepaid_to_postpaid,0
+Says roaming dropped out repeatedly during the trip.,roaming_problem,0
+Following up because no one called back.,follow_up,0
+Asked for electronic invoices.,billing_admin,0
+Called with a routine question about the account.,account_admin,0
+Compared our rates against <RIVAL> and says we come out worse.,competitor,2
+Requested the porting code so they can take the number to <RIVAL>.,port_out,3
+Wants out of this price bracket and is looking elsewhere.,price_value,2
+Asked about number retention after the account is closed.,port_out,2
+Looking at upgrading the device early.,device_upgrade,0
+Checking whether the old handset has any value.,device_upgrade,0
+Asked what a larger allowance would cost.,wants_more_data,0
+Shocked by the charges from an overseas trip.,roaming_problem,0
+Wants to move from prepaid to a monthly plan.,prepaid_to_postpaid,0
+Mentioned they already visited a <RIVAL> store to compare plans.,competitor,2
+Asked how much the early cancellation fee would be.,cancel,2
+Customer says they want to cancel the line.,cancel,3
+Wants to move the number to <RIVAL> and asked about the paperwork.,port_out,3
+Checking whether roaming supports tethering abroad.,roaming_interest,0
+Has been into a <RIVAL> branch and picked up a quote.,competitor,2
+Battery health has dropped sharply.,device_fault,0
+Wants to know the options while they are on service leave.,suspend_line,0
+Says competitor offers have caught their attention.,competitor,1
+Cannot get into the app after an update.,app_login,0
+Travelling to Korea and asked what speeds to expect.,roaming_interest,0
+Plans to leave once the current contract runs out.,renewal_doubt,2
+Asked for a breakdown of roaming prices.,roaming_interest,0
+Checking whether suspension counts towards the contract term.,suspend_line,0
+Says the plan is too expensive and wants a cheaper carrier.,price_value,2
+Wants to know whether a change applies mid-cycle.,plan_question,0
+Asked how many installment payments remain on the phone.,device_upgrade,0
+Asked how fees are calculated during a suspension.,suspend_line,0
+Wants the roaming rates explained before travelling.,roaming_interest,0
+Wants an update on something reported last week.,follow_up,0
+Asked whether charges continue while the line is on hold.,suspend_line,0
+Feels the <RIVAL> plans are better value than what they pay us.,competitor,1
+Wants to add another line to the family plan.,family_lines,0
+Asked us to walk them through the cancellation process.,cancel,3
+Asked about network quality at their destination.,roaming_interest,0
+Says they are seriously considering cancelling the service.,cancel,2
+Asked whether a roaming pass can be activated after departure.,roaming_interest,0
+Wants to know the per-line price on a shared plan.,family_lines,0
+Wants the comparison against other providers written down.,competitor,1
+Wants to know whether an old number can be reinstated.,account_admin,0
+Checking when the device is fully paid off.,device_upgrade,0
+The verification code for the app never arrives.,app_login,0
+Checking what the loyalty points can be exchanged for.,loyalty_points,0
+Data abroad works only intermittently.,roaming_problem,0
+Asked whether a branch is open on a public holiday.,account_admin,0
+"Billing dispute unresolved, and they threaten to leave if it continues.",billing_error,2
+Checking the status of a request made last week.,follow_up,0
+Loyal for a long time but says they are close to changing provider.,competitor,2
+Interested in putting the whole household on one account.,family_lines,0
+Checking which store can handle their request in person.,account_admin,0
+"General account question, no specific issue.",account_admin,0
+Wants to know whether an unused number is still active.,line_closing_no_save,0
+Wants confirmation that the travel pass is switched on.,roaming_interest,0
+Asked whether the pass covers their destination.,roaming_interest,0
+Passed on praise for a staff member who helped them.,feedback,0
+Asked a short question and was satisfied with the answer.,account_admin,0
+Considering cancellation and asked what we could offer to keep them.,cancel,2
+Warned that another month of dropped calls and they are gone.,coverage,2
+Asked us to confirm the account details on file.,account_admin,0
+Wanted a general explanation of their current setup.,account_admin,0
+Family members have moved to <RIVAL> and recommend it.,competitor,1
+A roaming charge appeared after their last trip and needs explaining.,roaming_problem,0
+Roaming connection keeps failing.,roaming_problem,0
+Forgot to switch roaming on before flying.,roaming_interest,0
+Wanted the exact penalty for ending the contract early.,cancel,2
+Asked which plan would suit their usage best.,plan_question,0
+Wants the line frozen while they are away.,suspend_line,0
+Cannot justify the monthly cost and is shopping for a cheaper provider.,price_value,2
+Several colleagues have moved to <RIVAL> and they are tempted.,competitor,1
+Needs roaming enabled for an overseas trip.,roaming_interest,0
+Requested a change to the invoice format.,billing_admin,0
+Asked what the plan converts to when the student rate ends.,student,0
+Asked how to port the number over to <RIVAL>.,port_out,3
+Requested a clear explanation of how to end the service.,cancel,2
+Asked for a price list for multi-country travel.,roaming_interest,0
+Asked about a data bundle for a few days abroad.,roaming_interest,0
+Wants receipts sent digitally.,billing_admin,0
+Asked whether the email on file is current.,account_admin,0
+Checking the rules for opening an account for a teenager.,family_lines,0
+Wants to give feedback about a recent store visit.,feedback,0
+Checking whether an engineer visit has been scheduled.,coverage,0
+Wants branch opening hours for the weekend.,account_admin,0
+Phone will not register on a network abroad.,roaming_problem,0
+Wants a second line for a child.,family_lines,0
+Asked how the trade-in credit is applied.,device_upgrade,0
+Checking the paperwork for a change of account holder.,account_admin,0
+Line has been idle for a long time and they asked about its status.,line_closing_no_save,0
+Travelling abroad next week and wants roaming switched on.,roaming_interest,0
+Wants to know whether a pass can start mid-trip.,roaming_interest,0
+Asked which destinations are cheapest to roam in.,roaming_interest,0
+After years with us they are looking at moving.,competitor,1
+Looking for a cheap option for a weekend trip.,roaming_interest,0
+Asked for progress on a request raised earlier.,follow_up,0
+Asked how to manage the line during military service.,suspend_line,0
+Wants confirmation that a hold was placed on the line.,suspend_line,0
+Asked about suspension rules for service members.,suspend_line,0
+Asked how to use membership points.,loyalty_points,0
+Asked us to review roaming charges from last month.,roaming_problem,0
+Checking what changes when the student discount stops.,student,0
+Asked for the hotline hours.,account_admin,0
+Asked where the nearest store is and when it opens.,account_admin,0
+Told us they are close to signing with <RIVAL>.,competitor,3
+Handling a deceased relative's account and needs guidance.,line_closing_no_save,0
+Complained about the wait time at a store.,feedback,0
+Wants a short-term international data package.,roaming_interest,0
+Asked us to confirm an earlier suspension request went through.,suspend_line,0
+Asked whether an inactive line still incurs charges.,line_closing_no_save,0
+Asked for a full breakdown of usage abroad.,roaming_problem,0
+Student plan is ending and they asked what happens next.,student,0
+Asked which documents a minor needs to open a line.,family_lines,0
+Family member has passed away and they need help with the account.,line_closing_no_save,0
+Asked how ownership of a number is transferred.,account_admin,0
+Going overseas and wants to keep the number without paying in full.,suspend_line,0
+Checking whether the account can be held during conscription.,suspend_line,0
+Studying abroad and wants to suspend the line temporarily.,suspend_line,0
+Asked how long a number can be recovered after closure.,account_admin,0
+Verifying the details registered to the account.,account_admin,0
+Asked whether points expire.,loyalty_points,0
+Already abroad and wants roaming added mid-trip.,roaming_interest,0
+Wants to know what a paused line costs each month.,suspend_line,0
+Checking the window for restoring a closed line.,account_admin,0
+Asked which documents are needed to transfer the number to another person.,account_admin,0
+Wants to compare roaming prices across several countries.,roaming_interest,0
+Asked whether a previous instruction was actioned.,follow_up,0
+Comparing our roaming rates before booking.,roaming_interest,0
+Left a comment about the service at a branch.,feedback,0
+Asked whether the number can be paused for a year.,suspend_line,0
+Asked whether a number is still held after the account ends.,account_admin,0
+Signal at the home address is still unreliable.,coverage,0
+Asked whether a guardian must sign for a young user.,family_lines,0
+Needs data abroad for a short business trip.,roaming_interest,0
+Wants the options now that they have graduated.,student,0
+Checking the state of a dormant line.,line_closing_no_save,0
+Direct debit did not go through this month.,payment_issue,0
+Reception where they live remains poor.,coverage,0
+Asked what documents are needed to close a relative's line.,line_closing_no_save,0
+Reception has been very unstable.,coverage,0
+App crashes when they open the billing page.,app_login,0
+Wants to know when they can reach a person rather than the app.,account_admin,0
+Received a large bill while abroad and wants it itemised.,roaming_problem,0
+Service has been dropping in and out.,coverage,0
+App login keeps failing.,app_login,0
+Coverage at their address has been weak for weeks.,coverage,0
+Connection quality has been erratic all month.,coverage,0

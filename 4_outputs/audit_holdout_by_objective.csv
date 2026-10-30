@@ -1,0 +1,4 @@
+﻿objective,treated_n,holdout_n,treated_conv_rate,holdout_conv_rate,treated_rev_per_head,holdout_rev_per_head,incremental_rev_per_head,share_of_reported_that_is_real
+roaming,7199,1800,0.0035,0.0033,3.87,4.03,-0.16,0.0
+upsell,38043,9511,0.0035,0.0019,6.11,3.4,2.7,0.4427
+winback,913,228,0.0088,0.0044,38.12,15.89,22.23,0.583

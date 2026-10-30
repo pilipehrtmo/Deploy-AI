@@ -1,0 +1,13 @@
+# Case data stays inside the team (DeployAI rules): never commit it.
+2_code/data/raw/*.csv
+2_code/data/raw/*.md
+# Per-customer outputs are rebuilt by `python run.py`.
+4_outputs/customers_clean.csv
+4_outputs/notes_read.csv
+4_outputs/audience_members.csv
+4_outputs/flagged_family_business.csv
+4_outputs/review_queue.csv
+4_outputs/brief_audience.csv
+__pycache__/
+*.pyc
+.venv/

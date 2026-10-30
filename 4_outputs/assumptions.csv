@@ -1,0 +1,8 @@
+﻿key,what,value,why
+save_rate,Share of would-be leavers we keep after contact,10% / 20% / 35%,"Unknown (FACT_SHEET). The pilot exists to measure it. Below the break-even rate, stop."
+churn_in_60d_flagged,Share of flagged customers who leave within 60 days without action,from backtest,"Measured on Mar/Apr/May 2026 cutoffs, notes before cutoff only."
+offer_takers,Customers who take the offer per customer saved,1.5,Some customers who would have stayed also take the offer; this cost is counted.
+value_per_save,Credit for one saved customer,6 x monthly bill,Finance rule (FACT_SHEET): six months of revenue. Lifetime value is higher; not counted.
+upsell_take,Share of customers who asked about it in a note and then buy,3% / 6% / 10%,Past broad upsell added about 0.16 points over holdout; asked-for offers should do better. Pilot measures it.
+scale,Sample to full base,x130,FACT_SHEET: sample is about 1 in 130.
+flow,New flagged customers per month,90-day audience / 3,Audience uses notes from the last 90 days.

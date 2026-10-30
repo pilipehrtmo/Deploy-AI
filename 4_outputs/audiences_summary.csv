@@ -1,0 +1,14 @@
+﻿audience,offer,customers_in_sample,customers_full_base
+retention_R1_leaving_now,Data boost,10,1300
+retention_R1_leaving_now,Renewal discount,13,1690
+retention_R2_wavering,Data boost,30,3900
+retention_R2_wavering,No offer: care call,5,650
+retention_R2_wavering,No offer: fix the bill and call back,7,910
+retention_R2_wavering,No offer: network care call,3,390
+retention_R2_wavering,Renewal discount,32,4160
+retention_R3_new_and_fragile,No offer: welcome check-in,853,110890
+retention_R4_unhappy_quiet,No offer: fix the bill and call back,135,17550
+retention_R4_unhappy_quiet,No offer: network care call,195,25350
+upsell_data_add-on,Data add-on,14,1820
+upsell_plan_upgrade,Plan upgrade,26,3380
+upsell_roaming_pass,Roaming pass,78,10140

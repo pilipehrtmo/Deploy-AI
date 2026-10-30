@@ -1,0 +1,241 @@
+﻿campaign_id,month,objective,channel,offer,target_segment,vague_target,compliant,problems,headline
+CMP0001,2024-07-01,upsell,LINE,Plan upgrade,family plan primary holders,False,True,,This month's upgrade offer with added services switched on
+CMP0002,2024-07-01,acquire,LINE Ads,Welcome gift,broad target,True,False,legal footer missing,Give your connection a fresh start and finish the paperwork in minutes
+CMP0003,2024-07-01,acquire,Meta Ads,Welcome gift,first-time smartphone buyers,False,False,legal footer missing,"A new number, made simple and build the bundle you want"
+CMP0004,2024-07-01,acquire,Retail Promotion,In-store new-line gift,students nationwide,False,False,legal footer missing,A new option is live and enjoy a welcome gift
+CMP0005,2024-07-01,acquire,LINE Ads,Welcome gift,first-time smartphone buyers,False,True,,Bring your number to Formosa and secure a limited-time plan
+CMP0006,2024-07-01,winback,SMS,Comeback offer,recently ported-out business accounts,False,False,legal footer missing,Formosa misses you and discover what is new
+CMP0007,2024-07-01,roaming,Email,Roaming pass,summer holiday travelers,False,False,legal footer missing,"Cross-border data, prepared and check the plan for your destination"
+CMP0008,2024-07-01,acquire,Retail Promotion,In-store new-line gift,everyone,True,True,,Begin today and make each month easier to budget
+CMP0009,2024-07-01,winback,SMS,Comeback offer,dormant prepaid users 6+ months,False,False,legal footer missing,An offer just for returning customers and read the returning-customer terms
+CMP0010,2024-07-01,winback,SMS,Comeback offer,churned postpaid users last 90 days,False,False,legal footer missing,"The service you know, refreshed and start the connection again"
+CMP0011,2024-08-01,acquire,Google Search,Welcome gift,new movers in New Taipei,False,False,legal footer missing,Change your plan with pricing you can actually read
+CMP0012,2024-08-01,winback,Email,Comeback offer,churned postpaid users last 90 days,False,False,legal footer missing,Let's give this another go and read the returning-customer terms
+CMP0013,2024-08-01,roaming,SMS,Roaming pass,summer holiday travelers,False,False,banned claim: never drops,A Thailand connection that never drops — share the whole trip with confidence
+CMP0014,2024-08-01,acquire,Meta Ads,Welcome gift,young families in Kaohsiung,False,False,legal footer missing,Move to Formosa now and collect your joining reward
+CMP0015,2024-08-01,winback,Email,Comeback offer,recently ported-out business accounts,False,True,,An invitation to reconnect and see the full details
+CMP0016,2024-08-01,acquire,Meta Ads,Welcome gift,first-time smartphone buyers,False,False,legal footer missing,"A new number, made simple and make each month easier to budget"
+CMP0017,2024-08-01,acquire,Meta Ads,Welcome gift,new movers in New Taipei,False,True,,A new option is live with pricing you can actually read
+CMP0018,2024-08-01,upsell,SMS,Data add-on,business accounts under 5 lines,False,True,,An offer for existing customers and compare plans now
+CMP0019,2024-08-01,upsell,App Push,Plan upgrade,not yet defined,True,False,legal footer missing,Add a little more to every day and land on the right tier  
+CMP0020,2024-08-01,upsell,Email,Data add-on,customers on legacy 4G-only plans,False,True,,Give your usage more room so work stays connected
+CMP0021,2024-09-01,acquire,Google Search,Welcome gift,students nationwide,False,True,,Start fresh with Formosa and make each month easier to budget
+CMP0022,2024-09-01,upsell,SMS,Plan upgrade,business accounts under 5 lines,False,True,,An upgrade sized for you and see the difference at a glance
+CMP0023,2024-09-01,upsell,LINE,Data add-on,premium device installment customers,False,True,,Unlock more data and see the difference at a glance
+CMP0024,2024-09-01,upsell,LINE,Data add-on,existing postpaid basic users near data cap,False,True,,An offer for existing customers and choose by what you actually use
+CMP0025,2024-09-01,winback,Outbound Call,Comeback offer,lapsed high-ARPU customers,False,False,legal footer missing,A homecoming offer for you and enjoy a loyalty gesture
+CMP0026,2024-09-01,acquire,Meta Ads,Welcome gift,university freshmen,False,True,,Begin today and collect your joining reward
+CMP0027,2024-09-01,roaming,LINE,Roaming pass,summer holiday travelers,False,False,legal footer missing; banned claim: never drops,A Europe connection that never drops — share the whole trip with confidence
+CMP0028,2024-09-01,acquire,Retail Promotion,In-store new-line gift,young families in Kaohsiung,False,True,,Pick a smarter plan and enjoy a welcome gift
+CMP0029,2024-09-01,upsell,App Push,Plan upgrade,high-usage prepaid users,False,True,,An upgrade sized for you and claim a customer-only reward
+CMP0030,2024-09-01,acquire,Google Search,Welcome gift,everyone,True,True,,A new option is live and make each month easier to budget
+CMP0031,2024-10-01,acquire,Google Search,Welcome gift,young professionals in Taipei,False,False,legal footer missing,Pick a smarter plan and unlock a members-only offer
+CMP0032,2024-10-01,acquire,Google Search,Welcome gift,first-time smartphone buyers,False,True,,Join Formosa today and secure a limited-time plan
+CMP0033,2024-10-01,acquire,Retail Promotion,In-store new-line gift,first-time smartphone buyers,False,True,,Bring your number to Formosa and enjoy a welcome gift
+CMP0034,2024-10-01,acquire,Google Search,Welcome gift,first-time smartphone buyers,False,True,,Move to Formosa now and take the savings home
+CMP0035,2024-10-01,acquire,Meta Ads,Welcome gift,first-time smartphone buyers,False,True,,Bring your number to Formosa and collect your joining reward
+CMP0036,2024-10-01,winback,LINE,Renewal discount,at-risk contract-expiry customers in Taichung,False,False,offer 'Renewal discount' is not approved for winback,A plan we rebuilt for you and open a better experience
+CMP0037,2024-10-01,roaming,SMS,Roaming pass,frequent travelers to Japan/Korea,False,False,banned claim: never drops,A Singapore connection that never drops — activate it before you fly
+CMP0038,2024-10-01,upsell,App Push,Data add-on,business accounts under 5 lines,False,True,,Give your usage more room and see the difference at a glance
+CMP0039,2024-10-01,winback,Email,Comeback offer,churned postpaid users last 90 days,False,True,,Your comeback plan is ready and pick a rate plan that fits now
+CMP0040,2024-10-01,winback,Email,Comeback offer,recently ported-out business accounts,False,True,,A homecoming offer for you and open a better experience
+CMP0041,2024-11-01,acquire,Meta Ads,Welcome gift,university freshmen,False,True,,Pick a smarter plan and finish the paperwork in minutes
+CMP0042,2024-11-01,upsell,SMS,Data add-on,broad target,True,True,,Move your plan up a tier so work stays connected
+CMP0043,2024-11-01,upsell,LINE,Plan upgrade,premium device installment customers,False,True,,Unlock more data and claim a customer-only reward
+CMP0044,2024-11-01,winback,SMS,Comeback offer,lapsed high-ARPU customers,False,False,legal footer missing,An offer just for returning customers and take the offer home
+CMP0045,2024-11-01,acquire,Meta Ads,Welcome gift,broad target,True,False,legal footer missing,Start fresh with Formosa and see every offer in one place
+CMP0046,2024-11-01,roaming,App Push,Roaming pass,everyone,True,False,banned claim: never drops,A Korea connection that never drops — share the whole trip with confidence
+CMP0047,2024-11-01,upsell,Email,Data add-on,family plan primary holders,False,True,,An upgrade sized for you and see exactly what an upgrade adds
+CMP0048,2024-11-01,acquire,Meta Ads,Welcome gift,competitive plan switchers in Taichung,False,False,legal footer missing,Bring your number to Formosa and see every offer in one place
+CMP0049,2024-11-01,acquire,Retail Promotion,In-store new-line gift,new movers in New Taipei,False,True,,A new option is live and secure a limited-time plan
+CMP0050,2024-11-01,upsell,App Push,Plan upgrade,business accounts under 5 lines,False,True,,This month's upgrade offer so work stays connected
+CMP0051,2024-12-01,acquire,Meta Ads,Welcome gift,general customer base,True,True,,Join Formosa today and see the full details
+CMP0052,2024-12-01,acquire,Meta Ads,Welcome gift,TBD,True,True,,Join Formosa today and find the right rate plan
+CMP0053,2024-12-01,winback,Outbound Call,Comeback offer,dormant prepaid users 6+ months,False,True,,Let's give this another go and compare our latest plans
+CMP0054,2024-12-01,acquire,Google Search,Welcome gift,budget-conscious prepaid switchers,False,True,,Begin today and find the right rate plan
+CMP0055,2024-12-01,acquire,Meta Ads,Welcome gift,young professionals in Taipei,False,False,legal footer missing,Start fresh with Formosa and build the bundle you want
+CMP0056,2024-12-01,acquire,LINE Ads,Welcome gift,new movers in New Taipei,False,False,legal footer missing,Begin today and finish the paperwork in minutes
+CMP0057,2024-12-01,winback,Email,Comeback offer,dormant prepaid users 6+ months,False,False,legal footer missing,"The service you know, refreshed and start again from what you need"
+CMP0058,2024-12-01,winback,LINE,Comeback offer,all subscribers,True,False,legal footer missing,Formosa misses you and talk it through with our team
+CMP0059,2024-12-01,winback,Email,Comeback offer,recently ported-out business accounts,False,False,legal footer missing,An offer just for returning customers and start again from what you need
+CMP0060,2024-12-01,acquire,Meta Ads,Welcome gift,everyone,True,True,,"A new number, made simple and finish the paperwork in minutes"
+CMP0061,2025-01-01,winback,Email,Comeback offer,recently ported-out business accounts,False,True,,An offer just for returning customers and pick a rate plan that fits now
+CMP0062,2025-01-01,roaming,SMS,Roaming pass,summer holiday travelers,False,False,banned claim: never drops,A Korea connection that never drops — activate it before you fly
+CMP0063,2025-01-01,upsell,App Push,Plan upgrade,existing postpaid basic users near data cap,False,True,,Give your usage more room and choose by what you actually use
+CMP0064,2025-01-01,acquire,LINE Ads,Welcome gift,first-time smartphone buyers,False,False,legal footer missing,Move to Formosa now and finish the paperwork in minutes
+CMP0065,2025-01-01,acquire,Retail Promotion,In-store new-line gift,first-time smartphone buyers,False,True,,A new option is live and finish the paperwork in minutes
+CMP0066,2025-01-01,acquire,Retail Promotion,In-store new-line gift,broad target,True,False,legal footer missing,Give your connection a fresh start and finish the paperwork in minutes
+CMP0067,2025-01-01,acquire,Google Search,Welcome gift,budget-conscious prepaid switchers,False,True,,"A new number, made simple and build the bundle you want"
+CMP0068,2025-01-01,roaming,SMS,Roaming pass,summer holiday travelers,False,False,banned claim: never drops,A Singapore connection that never drops — share the whole trip with confidence
+CMP0069,2025-01-01,acquire,Retail Promotion,In-store new-line gift,university freshmen,False,True,,A new option is live and enjoy a welcome gift
+CMP0070,2025-01-01,acquire,Meta Ads,Welcome gift,budget-conscious prepaid switchers,False,True,,Bring your number to Formosa and secure a limited-time plan
+CMP0071,2025-02-01,acquire,Meta Ads,Welcome gift,budget-conscious prepaid switchers,False,True,,Begin today and make each month easier to budget
+CMP0072,2025-02-01,roaming,Email,Roaming pass,business travelers,False,True,,"Cross-border data, prepared and avoid a surprise bill"
+CMP0073,2025-02-01,upsell,LINE,Plan upgrade,high-usage prepaid users,False,True,,An upgrade sized for you and land on the right tier
+CMP0074,2025-02-01,acquire,Retail Promotion,In-store new-line gift,university freshmen,False,True,,Change your plan with pricing you can actually read
+CMP0075,2025-02-01,acquire,Meta Ads,Welcome gift,competitive plan switchers in Taichung,False,True,,Move to Formosa now and collect your joining reward
+CMP0076,2025-02-01,acquire,Google Search,Welcome gift,budget-conscious prepaid switchers,False,True,,"A new number, made simple and make each month easier to budget"
+CMP0077,2025-02-01,upsell,App Push,Plan upgrade,not yet defined,True,False,legal footer missing,This month's upgrade offer and put every gigabyte to use
+CMP0078,2025-02-01,winback,Outbound Call,Comeback offer,everyone,True,True,,A homecoming offer for you and see the full details
+CMP0079,2025-02-01,acquire,LINE Ads,Welcome gift,new movers in New Taipei,False,True,,A new option is live with pricing you can actually read
+CMP0080,2025-02-01,acquire,LINE Ads,Welcome gift,students nationwide,False,False,legal footer missing,Start fresh with Formosa and make each month easier to budget
+CMP0081,2025-03-01,upsell,SMS,Plan upgrade,existing postpaid basic users near data cap,False,True,,Give your usage more room and put every gigabyte to use
+CMP0082,2025-03-01,acquire,Meta Ads,Welcome gift,new movers in New Taipei,False,True,,Begin today and collect your joining reward
+CMP0083,2025-03-01,upsell,LINE,Plan upgrade,premium device installment customers,False,True,,An upgrade sized for you with added services switched on
+CMP0084,2025-03-01,upsell,SMS,Data add-on,existing postpaid basic users near data cap,False,True,,Add a little more to every day and compare plans now
+CMP0085,2025-03-01,upsell,Email,Data add-on,existing postpaid basic users near data cap,False,False,legal footer missing,Tune your plan to how you use it and see the difference at a glance
+CMP0086,2025-03-01,winback,Email,Renewal discount,at-risk contract-expiry customers in Taichung,False,False,offer 'Renewal discount' is not approved for winback,"Welcome back, old friend and open a better experience"
+CMP0087,2025-03-01,acquire,Meta Ads,Welcome gift,budget-conscious prepaid switchers,False,True,,Pick a smarter plan and enjoy a welcome gift
+CMP0088,2025-03-01,acquire,Meta Ads,Welcome gift,competitive plan switchers in Taichung,False,False,legal footer missing,A new option is live and make each month easier to budget
+CMP0089,2025-03-01,winback,Email,Comeback offer,not yet defined,True,False,legal footer missing,"The service you know, refreshed and enjoy a loyalty gesture"
+CMP0090,2025-03-01,acquire,Retail Promotion,In-store new-line gift,university freshmen,False,False,legal footer missing,Pick a smarter plan and unlock a members-only offer
+CMP0091,2025-04-01,roaming,LINE,Roaming pass,TBD,True,False,legal footer missing,Land online and stay online and share photos as they happen
+CMP0092,2025-04-01,acquire,Meta Ads,Welcome gift,TBD,True,True,,Join Formosa today and secure a limited-time plan
+CMP0093,2025-04-01,roaming,LINE,Roaming pass,business travelers,False,False,banned claim: never drops,A North America connection that never drops — share the whole trip with confidence
+CMP0094,2025-04-01,upsell,Email,Plan upgrade,premium device installment customers,False,True,,More data is one step away and claim a customer-only reward
+CMP0095,2025-04-01,roaming,LINE,Roaming pass,summer holiday travelers,False,True,,A roaming plan that travels with you with day-by-day flexibility
+CMP0096,2025-04-01,upsell,App Push,Data add-on,family plan primary holders,False,False,legal footer missing,"More allowance, less worry and view your personal recommendation"
+CMP0097,2025-04-01,upsell,SMS,Plan upgrade,existing postpaid basic users near data cap,False,True,,Move your plan up a tier and compare plans now
+CMP0098,2025-04-01,roaming,App Push,Roaming pass,summer holiday travelers,False,False,legal footer missing; banned claim: never drops,A Europe connection that never drops — activate it before you fly
+CMP0099,2025-04-01,upsell,LINE,Plan upgrade,general customer base,True,True,,An offer for existing customers so streaming never runs dry
+CMP0100,2025-04-01,acquire,Google Search,Welcome gift,students nationwide,False,True,,Bring your number to Formosa and enjoy a welcome gift
+CMP0101,2025-05-01,acquire,Google Search,Welcome gift,everyone,True,True,,Move to Formosa now and take the savings home
+CMP0102,2025-05-01,upsell,Email,Plan upgrade,broad target,True,True,,Tune your plan to how you use it and land on the right tier
+CMP0103,2025-05-01,acquire,Retail Promotion,In-store new-line gift,students nationwide,False,True,,Bring your number to Formosa and collect your joining reward
+CMP0104,2025-05-01,roaming,App Push,Roaming pass,business travelers,False,True,,Land online and stay online and finish it all before departure
+CMP0105,2025-05-01,roaming,SMS,Roaming pass,frequent travelers to Japan/Korea,False,False,banned claim: never drops,A Hong Kong connection that never drops — share the whole trip with confidence
+CMP0106,2025-05-01,upsell,Email,Plan upgrade,customers on legacy 4G-only plans,False,True,,Give your usage more room and view your personal recommendation
+CMP0107,2025-05-01,winback,Email,Comeback offer,recently ported-out business accounts,False,True,,A homecoming offer for you and pick a rate plan that fits now
+CMP0108,2025-05-01,upsell,Email,Plan upgrade,premium device installment customers,False,True,,An offer for existing customers and get more room to move
+CMP0109,2025-05-01,roaming,Email,Roaming pass,cross-strait frequent flyers,False,True,,Set it up before takeoff and share photos as they happen
+CMP0110,2025-05-01,acquire,LINE Ads,Welcome gift,competitive plan switchers in Taichung,False,True,,Pick a smarter plan and finish the paperwork in minutes
+CMP0111,2025-06-01,roaming,SMS,Roaming pass,frequent travelers to Japan/Korea,False,True,,A roaming plan that travels with you and watch your usage any time
+CMP0112,2025-06-01,upsell,App Push,Data add-on,existing postpaid basic users near data cap,False,True,,"More allowance, less worry and put every gigabyte to use"
+CMP0113,2025-06-01,acquire,Google Search,Welcome gift,new movers in New Taipei,False,True,,Start fresh with Formosa and see every offer in one place
+CMP0114,2025-06-01,acquire,Retail Promotion,In-store new-line gift,young families in Kaohsiung,False,True,,Bring your number to Formosa and see every offer in one place
+CMP0115,2025-06-01,upsell,SMS,Data add-on,business accounts under 5 lines,False,True,,"  More allowance, less worry and claim a customer-only reward"
+CMP0116,2025-06-01,acquire,Meta Ads,Welcome gift,everyone,True,True,,A new option is live and secure a limited-time plan
+CMP0117,2025-06-01,roaming,SMS,Roaming pass,frequent travelers to Japan/Korea,False,False,legal footer missing; banned claim: never drops,A Thailand connection that never drops — activate it before you fly
+CMP0118,2025-06-01,upsell,Email,Plan upgrade,existing postpaid basic users near data cap,False,True,,Move your plan up a tier with added services switched on
+CMP0119,2025-06-01,upsell,LINE,Plan upgrade,broad target,True,False,legal footer missing,This month's upgrade offer with added services switched on
+CMP0120,2025-06-01,upsell,App Push,Plan upgrade,high-usage prepaid users,False,True,,An offer for existing customers and compare plans now
+CMP0121,2025-07-01,acquire,Meta Ads,Welcome gift,students nationwide,False,True,,Join Formosa today and see the full details
+CMP0122,2025-07-01,acquire,Google Search,Welcome gift,general customer base,True,False,legal footer missing,Join Formosa today and find the right rate plan
+CMP0123,2025-07-01,acquire,LINE Ads,Welcome gift,students nationwide,False,False,legal footer missing,Begin today and find the right rate plan
+CMP0124,2025-07-01,winback,LINE,Renewal discount,at-risk contract-expiry customers in Taichung,False,False,offer 'Renewal discount' is not approved for winback,Formosa misses you and start the connection again
+CMP0125,2025-07-01,winback,LINE,Comeback offer,churned postpaid users last 90 days,False,True,,An invitation to reconnect and discover what is new
+CMP0126,2025-07-01,roaming,Email,Roaming pass,students studying abroad,False,False,legal footer missing,"Data abroad, sorted and compare plans before you leave"
+CMP0127,2025-07-01,acquire,Google Search,Welcome gift,all subscribers,True,False,legal footer missing,Start fresh with Formosa and build the bundle you want
+CMP0128,2025-07-01,upsell,LINE,Data add-on,premium device installment customers,False,True,,Add a little more to every day and land on the right tier
+CMP0129,2025-07-01,acquire,Retail Promotion,In-store new-line gift,young families in Kaohsiung,False,True,,Begin today and finish the paperwork in minutes
+CMP0130,2025-07-01,upsell,App Push,Plan upgrade,high-usage prepaid users,False,False,legal footer missing,Give your usage more room so work stays connected
+CMP0131,2025-08-01,acquire,Retail Promotion,In-store new-line gift,everyone,True,False,legal footer missing,"A new number, made simple and finish the paperwork in minutes"
+CMP0132,2025-08-01,upsell,App Push,Plan upgrade,customers on legacy 4G-only plans,False,False,legal footer missing,An upgrade sized for you and see the difference at a glance
+CMP0133,2025-08-01,roaming,LINE,Roaming pass,summer holiday travelers,False,True,,Get connected before you fly and finish it all before departure
+CMP0134,2025-08-01,upsell,LINE,Plan upgrade,family plan primary holders,False,True,,Unlock more data and see the difference at a glance
+CMP0135,2025-08-01,roaming,App Push,Roaming pass,business travelers,False,True,,"Short trips, simple roaming and watch your usage any time"
+CMP0136,2025-08-01,acquire,LINE Ads,Welcome gift,competitive plan switchers in Taichung,False,False,legal footer missing,Move to Formosa now and finish the paperwork in minutes
+CMP0137,2025-08-01,roaming,Email,Roaming pass,business travelers,False,False,banned claim: never drops,A Macau connection that never drops — activate it before you fly
+CMP0138,2025-08-01,winback,Outbound Call,Comeback offer,lapsed high-ARPU customers,False,True,,Come and see what changed and read the returning-customer terms
+CMP0139,2025-08-01,acquire,Meta Ads,Welcome gift,students nationwide,False,True,,A new option is live and finish the paperwork in minutes
+CMP0140,2025-08-01,acquire,LINE Ads,Welcome gift,new movers in New Taipei,False,True,,Give your connection a fresh start and finish the paperwork in minutes
+CMP0141,2025-09-01,upsell,App Push,Data add-on,customers on legacy 4G-only plans,False,True,,An offer for existing customers and choose by what you actually use
+CMP0142,2025-09-01,upsell,LINE,Plan upgrade,high-usage prepaid users,False,True,,An upgrade sized for you and claim a customer-only reward
+CMP0143,2025-09-01,acquire,Google Search,Welcome gift,budget-conscious prepaid switchers,False,False,legal footer missing,"A new number, made simple and build the bundle you want"
+CMP0144,2025-09-01,acquire,LINE Ads,Welcome gift,university freshmen,False,True,,A new option is live and enjoy a welcome gift
+CMP0145,2025-09-01,acquire,LINE Ads,Welcome gift,first-time smartphone buyers,False,True,,Bring your number to Formosa and secure a limited-time plan
+CMP0146,2025-09-01,upsell,App Push,Data add-on,business accounts under 5 lines,False,True,,Give your usage more room and see the difference at a glance
+CMP0147,2025-09-01,upsell,Email,Plan upgrade,high-usage prepaid users,False,True,,Move your plan up a tier so work stays connected
+CMP0148,2025-09-01,acquire,Meta Ads,Welcome gift,first-time smartphone buyers,False,False,legal footer missing,Begin today and make each month easier to budget
+CMP0149,2025-09-01,roaming,SMS,Roaming pass,students studying abroad,False,False,banned claim: never drops,A Vietnam connection that never drops — activate it before you fly
+CMP0150,2025-09-01,roaming,SMS,Roaming pass,business travelers,False,True,,"Cross-border data, prepared and activate in a moment"
+CMP0151,2025-10-01,upsell,LINE,Plan upgrade,high-usage prepaid users,False,True,,Unlock more data and claim a customer-only reward
+CMP0152,2025-10-01,upsell,LINE,Plan upgrade,premium device installment customers,False,False,legal footer missing,An upgrade sized for you and see exactly what an upgrade adds
+CMP0153,2025-10-01,acquire,Retail Promotion,In-store new-line gift,students nationwide,False,True,,Change your plan with pricing you can actually read
+CMP0154,2025-10-01,roaming,SMS,Roaming pass,frequent travelers to Japan/Korea,False,True,,Take your allowance travelling and pick up travel tips
+CMP0155,2025-10-01,upsell,App Push,Plan upgrade,business accounts under 5 lines,False,True,,This month's upgrade offer so work stays connected
+CMP0156,2025-10-01,acquire,LINE Ads,Welcome gift,students nationwide,False,True,,Move to Formosa now and collect your joining reward
+CMP0157,2025-10-01,acquire,Google Search,Welcome gift,university freshmen,False,False,legal footer missing,"A new number, made simple and make each month easier to budget"
+CMP0158,2025-10-01,acquire,Meta Ads,Welcome gift,competitive plan switchers in Taichung,False,True,,A new option is live with pricing you can actually read
+CMP0159,2025-10-01,winback,Email,Comeback offer,broad target,True,False,legal footer missing,Your comeback plan is ready and discover what is new
+CMP0160,2025-10-01,acquire,Meta Ads,Welcome gift,new movers in New Taipei,False,True,,Start fresh with Formosa and make each month easier to budget
+CMP0161,2025-11-01,acquire,Meta Ads,Welcome gift,broad target,True,True,,Begin today and collect your joining reward
+CMP0162,2025-11-01,upsell,App Push,Data add-on,family plan primary holders,False,False,legal footer missing,Give your usage more room and choose by what you actually use
+CMP0163,2025-11-01,winback,LINE,Comeback offer,dormant prepaid users 6+ months,False,True,,"Welcome back, old friend and take the offer home"
+CMP0164,2025-11-01,upsell,SMS,Data add-on,family plan primary holders,False,True,,An upgrade sized for you and land on the right tier
+CMP0165,2025-11-01,acquire,Meta Ads,Welcome gift,new movers in New Taipei,False,True,,Pick a smarter plan and enjoy a welcome gift
+CMP0166,2025-11-01,roaming,App Push,Roaming pass,students studying abroad,False,True,,Plan your overseas data first and watch your usage any time
+CMP0167,2025-11-01,upsell,App Push,Plan upgrade,customers on legacy 4G-only plans,False,True,,This month's upgrade offer and put every gigabyte to use
+CMP0168,2025-11-01,winback,SMS,Comeback offer,recently ported-out business accounts,False,True,,"The service you know, refreshed and compare our latest plans"
+CMP0169,2025-11-01,acquire,LINE Ads,Welcome gift,university freshmen,False,True,,A new option is live and make each month easier to budget
+CMP0170,2025-11-01,winback,Email,Comeback offer,dormant prepaid users 6+ months,False,True,,"Welcome back, old friend and compare our latest plans"
+CMP0171,2025-12-01,winback,Email,Comeback offer,not recorded,True,True,,Come and see what changed and enjoy a loyalty gesture
+CMP0172,2025-12-01,acquire,LINE Ads,Welcome gift,all subscribers,True,False,legal footer missing,Pick a smarter plan and unlock a members-only offer
+CMP0173,2025-12-01,winback,Email,Comeback offer,churned postpaid users last 90 days,False,False,legal footer missing,Your comeback plan is ready and take the offer home
+CMP0174,2025-12-01,upsell,App Push,Plan upgrade,everyone,True,True,,Give your usage more room and put every gigabyte to use
+CMP0175,2025-12-01,upsell,LINE,Plan upgrade,business accounts under 5 lines,False,True,,An upgrade sized for you with added services switched on
+CMP0176,2025-12-01,roaming,LINE,Roaming pass,students studying abroad,False,False,legal footer missing,Plan your overseas data first and share photos as they happen
+CMP0177,2025-12-01,acquire,Google Search,Welcome gift,competitive plan switchers in Taichung,False,False,legal footer missing,Join Formosa today and secure a limited-time plan
+CMP0178,2025-12-01,acquire,Google Search,Welcome gift,not recorded,True,True,,Bring your number to Formosa and enjoy a welcome gift
+CMP0179,2025-12-01,upsell,LINE,Plan upgrade,premium device installment customers,False,True,,Add a little more to every day and compare plans now
+CMP0180,2025-12-01,acquire,LINE Ads,Welcome gift,budget-conscious prepaid switchers,False,True,,Move to Formosa now and take the savings home
+CMP0181,2026-01-01,upsell,App Push,Data add-on,high-usage prepaid users,False,True,,Tune your plan to how you use it and see the difference at a glance
+CMP0182,2026-01-01,acquire,Retail Promotion,In-store new-line gift,TBD,True,True,,Bring your number to Formosa and collect your joining reward
+CMP0183,2026-01-01,acquire,Google Search,Welcome gift,budget-conscious prepaid switchers,False,False,legal footer missing,Pick a smarter plan and finish the paperwork in minutes
+CMP0184,2026-01-01,acquire,Meta Ads,Welcome gift,broad target,True,True,,Start fresh with Formosa and see every offer in one place
+CMP0185,2026-01-01,acquire,LINE Ads,Welcome gift,not yet defined,True,True,,Bring your number to Formosa and see every offer in one place
+CMP0186,2026-01-01,acquire,Meta Ads,Welcome gift,students nationwide,False,True,,A new option is live and secure a limited-time plan
+CMP0187,2026-01-01,acquire,LINE Ads,Welcome gift,young professionals in Taipei,False,True,,Join Formosa today and see the full details
+CMP0188,2026-01-01,upsell,App Push,Plan upgrade,high-usage prepaid users,False,True,,More data is one step away and claim a customer-only reward
+CMP0189,2026-01-01,roaming,LINE,Roaming pass,summer holiday travelers,False,False,banned claim: never drops,A Japan connection that never drops — share the whole trip with confidence
+CMP0190,2026-01-01,acquire,Google Search,Welcome gift,students nationwide,False,False,legal footer missing,Join Formosa today and find the right rate plan
+CMP0191,2026-02-01,acquire,Google Search,Welcome gift,new movers in New Taipei,False,True,,Begin today and find the right rate plan
+CMP0192,2026-02-01,acquire,Retail Promotion,In-store new-line gift,first-time smartphone buyers,False,True,,Start fresh with Formosa and build the bundle you want
+CMP0193,2026-02-01,acquire,Retail Promotion,In-store new-line gift,first-time smartphone buyers,False,True,,Begin today and finish the paperwork in minutes
+CMP0194,2026-02-01,acquire,Meta Ads,Welcome gift,new movers in New Taipei,False,False,legal footer missing,"A new number, made simple and finish the paperwork in minutes"
+CMP0195,2026-02-01,upsell,App Push,Data add-on,premium device installment customers,False,False,legal footer missing,"More allowance, less worry and view your personal recommendation"
+CMP0196,2026-02-01,upsell,SMS,Plan upgrade,broad target,True,True,,Move your plan up a tier and compare plans now
+CMP0197,2026-02-01,acquire,Retail Promotion,In-store new-line gift,university freshmen,False,False,legal footer missing,Move to Formosa now and finish the paperwork in minutes
+CMP0198,2026-02-01,acquire,Meta Ads,Welcome gift,students nationwide,False,False,legal footer missing,A new option is live and finish the paperwork in minutes
+CMP0199,2026-02-01,acquire,Google Search,Welcome gift,young families in Kaohsiung,False,True,,Give your connection a fresh start and finish the paperwork in minutes
+CMP0200,2026-02-01,roaming,App Push,Roaming pass,frequent travelers to Japan/Korea,False,False,banned claim: never drops,A Hong Kong connection that never drops — activate it before you fly
+CMP0201,2026-03-01,upsell,Email,Plan upgrade,existing postpaid basic users near data cap,False,True,,An offer for existing customers so streaming never runs dry
+CMP0202,2026-03-01,upsell,App Push,Plan upgrade,not recorded,True,False,legal footer missing,Tune your plan to how you use it and land on the right tier
+CMP0203,2026-03-01,upsell,Email,Plan upgrade,existing postpaid basic users near data cap,False,True,,Give your usage more room and view your personal recommendation
+CMP0204,2026-03-01,upsell,LINE,Data add-on,not yet defined,True,True,,An offer for existing customers and get more room to move
+CMP0205,2026-03-01,acquire,LINE Ads,Welcome gift,competitive plan switchers in Taichung,False,False,legal footer missing,"A new number, made simple and build the bundle you want"
+CMP0206,2026-03-01,winback,Outbound Call,Renewal discount,at-risk contract-expiry customers in Taichung,False,False,legal footer missing; offer 'Renewal discount' is not approved for winback,An invitation to reconnect and start the connection again
+CMP0207,2026-03-01,acquire,Retail Promotion,In-store new-line gift,budget-conscious prepaid switchers,False,True,,A new option is live and enjoy a welcome gift
+CMP0208,2026-03-01,upsell,LINE,Plan upgrade,high-usage prepaid users,False,True,,"More allowance, less worry and put every gigabyte to use"
+CMP0209,2026-03-01,roaming,SMS,Roaming pass,business travelers,False,True,,A roaming plan that travels with you and keep the trip on budget
+CMP0210,2026-03-01,upsell,App Push,Plan upgrade,family plan primary holders,False,True,,"More allowance, less worry and claim a customer-only reward"
+CMP0211,2026-04-01,acquire,Meta Ads,Welcome gift,all subscribers,True,True,,Bring your number to Formosa and secure a limited-time plan
+CMP0212,2026-04-01,roaming,SMS,Roaming pass,summer holiday travelers,False,True,,"Data abroad, sorted and pick up travel tips"
+CMP0213,2026-04-01,acquire,Meta Ads,Welcome gift,first-time smartphone buyers,False,False,legal footer missing,Begin today and make each month easier to budget
+CMP0214,2026-04-01,acquire,LINE Ads,Welcome gift,all subscribers,True,True,,Change your plan with pricing you can actually read
+CMP0215,2026-04-01,acquire,Retail Promotion,In-store new-line gift,new movers in New Taipei,False,False,legal footer missing,Move to Formosa now and collect your joining reward
+CMP0216,2026-04-01,upsell,SMS,Data add-on,family plan primary holders,False,True,,Move your plan up a tier with added services switched on
+CMP0217,2026-04-01,upsell,LINE,Plan upgrade,customers on legacy 4G-only plans,False,True,,This month's upgrade offer with added services switched on
+CMP0218,2026-04-01,upsell,App Push,Data add-on,existing postpaid basic users near data cap,False,False,legal footer missing,An offer for existing customers and compare plans now
+CMP0219,2026-04-01,upsell,SMS,Plan upgrade,high-usage prepaid users,False,True,,Add a little more to every day and land on the right tier
+CMP0220,2026-04-01,acquire,Retail Promotion,In-store new-line gift,new movers in New Taipei,False,True,,"A new number, made simple and make each month easier to budget"
+CMP0221,2026-05-01,acquire,LINE Ads,Welcome gift,students nationwide,False,True,,A new option is live with pricing you can actually read
+CMP0222,2026-05-01,winback,Outbound Call,Comeback offer,dormant prepaid users 6+ months,False,True,,"The service you know, refreshed and open a better experience"
+CMP0223,2026-05-01,upsell,App Push,Plan upgrade,high-usage prepaid users,False,True,,Give your usage more room so work stays connected
+CMP0224,2026-05-01,roaming,Email,Roaming pass,frequent travelers to Japan/Korea,False,False,banned claim: never drops,A Japan connection that never drops — activate it before you fly
+CMP0225,2026-05-01,upsell,Email,Plan upgrade,family plan primary holders,False,True,,An upgrade sized for you and see the difference at a glance
+CMP0226,2026-05-01,roaming,Email,Roaming pass,cross-strait frequent flyers,False,False,legal footer missing,Get connected before you fly and avoid a surprise bill
+CMP0227,2026-05-01,roaming,SMS,Roaming pass,not recorded,True,False,banned claim: never drops,A Macau connection that never drops — share the whole trip with confidence
+CMP0228,2026-05-01,acquire,LINE Ads,Welcome gift,new movers in New Taipei,False,True,,Start fresh with Formosa and make each month easier to budget
+CMP0229,2026-05-01,upsell,SMS,Data add-on,everyone,True,True,,Unlock more data and see the difference at a glance
+CMP0230,2026-05-01,roaming,App Push,Roaming pass,cross-strait frequent flyers,False,False,banned claim: never drops,A Vietnam connection that never drops — share the whole trip with confidence
+CMP0231,2026-06-01,acquire,Meta Ads,Welcome gift,competitive plan switchers in Taichung,False,True,,Begin today and collect your joining reward
+CMP0232,2026-06-01,acquire,LINE Ads,Welcome gift,new movers in New Taipei,False,True,,Pick a smarter plan and enjoy a welcome gift
+CMP0233,2026-06-01,upsell,LINE,Data add-on,high-usage prepaid users,False,False,legal footer missing,An offer for existing customers and choose by what you actually use
+CMP0234,2026-06-01,winback,SMS,Comeback offer,dormant prepaid users 6+ months,False,True,,Formosa misses you and discover what is new
+CMP0235,2026-06-01,upsell,SMS,Plan upgrade,premium device installment customers,False,False,legal footer missing,An upgrade sized for you and claim a customer-only reward
+CMP0236,2026-06-01,acquire,Meta Ads,Welcome gift,new movers in New Taipei,False,False,legal footer missing,A new option is live and make each month easier to budget
+CMP0237,2026-06-01,upsell,SMS,Plan upgrade,business accounts under 5 lines,False,True,,Give your usage more room and see the difference at a glance
+CMP0238,2026-06-01,upsell,LINE,Plan upgrade,high-usage prepaid users,False,False,legal footer missing,Move your plan up a tier so work stays connected
+CMP0239,2026-06-01,acquire,Meta Ads,Welcome gift,not yet defined,True,True,,Pick a smarter plan and unlock a members-only offer
+CMP0240,2026-06-01,upsell,Email,Plan upgrade,family plan primary holders,False,False,legal footer missing,Unlock more data and claim a customer-only reward

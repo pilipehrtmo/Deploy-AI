@@ -1,0 +1,7 @@
+﻿objective,scenario,save_rate,flagged_per_month_full_base,p_leave_60d,customers_kept_per_year,credited_revenue_twd,offer_cost_twd,net_margin_twd,take_rate,audience_per_month_full_base,buyers_per_year
+1 churn,low,0.1,4333.0,0.493,2566.0,10454700,2540426,3732394,,,
+1 churn,mid,0.2,4333.0,0.493,5132.0,20909400,5080852,7464788,,,
+1 churn,high,0.35,4333.0,0.493,8981.0,36591451,8891491,13063379,,,
+2 earn more,low,,,,,1708356,834506,190507,0.03,5113.0,1841.0
+2 earn more,mid,,,,,3416712,1669013,381014,0.06,5113.0,3682.0
+2 earn more,high,,,,,5694520,2781688,635024,0.1,5113.0,6136.0

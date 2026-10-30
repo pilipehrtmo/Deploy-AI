@@ -1,0 +1,4 @@
+﻿scenario,save_rate,flagged_full_base_90d,treated,held_back_20pct,outbound_calls,messaging_cost,offer_cost,creative_cost,total_cost,within_budget,customers_kept,credited_revenue,margin_minus_cost
+low,0.1,13000,10400,2600,6000,25029,508085,69291,602406,True,513,2090940,652158
+mid,0.2,13000,10400,2600,6000,25029,1016170,69291,1110491,True,1026,4181880,1398637
+high,0.35,13000,10400,2600,6000,25029,1778298,69291,1872619,True,1796,7318290,2518355

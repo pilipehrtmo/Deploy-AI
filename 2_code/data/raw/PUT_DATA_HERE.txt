@@ -1,0 +1,1 @@
+Put the case data files here: subscribers.csv, support_tickets.csv, campaigns.csv, campaign_copy.csv, campaign_contacts.csv. They are not in this repo because the case data stays inside the team.

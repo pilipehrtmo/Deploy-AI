@@ -1,0 +1,30 @@
+﻿file,step,rows_before,rows_after,changed,note
+subscribers.csv,load,50250,50250,0,
+subscribers.csv,strip spaces in plan_type,50250,50250,0,504 values had extra spaces
+subscribers.csv,strip spaces in region,50250,50250,0,500 values had extra spaces
+subscribers.csv,strip spaces in device_tier,50250,50250,0,501 values had extra spaces
+subscribers.csv,drop exact duplicate rows,50250,50000,250,
+subscribers.csv,drop repeated sub_id,50000,50000,0,
+subscribers.csv,unify contract_end date formats,50000,50000,0,13828 dates were dd/mm/yyyy or 年月日 format
+subscribers.csv,flag data_gb 999 as unlimited; keep missing as unknown,50000,50000,0,"13755 unlimited, 750 missing"
+subscribers.csv,fill missing region with 'unknown',50000,50000,0,750 missing
+subscribers.csv,fill missing device_tier with 'unknown',50000,50000,0,750 missing
+subscribers.csv,flag prepaid bills under NT$100 as suspect (kept),50000,50000,0,20 rows
+subscribers.csv,check churn_flag vs churn_date,50000,50000,0,0 churned rows without a date
+support_tickets.csv,load,8040,8040,0,
+support_tickets.csv,strip spaces in category,8040,8040,0,80 values had extra spaces
+support_tickets.csv,drop exact duplicate rows,8040,8000,40,
+support_tickets.csv,drop repeated ticket_id,8000,8000,0,
+support_tickets.csv,unify date formats; missing dates kept but excluded from time tests,8000,8000,0,120 tickets have no date
+support_tickets.csv,fill missing category with 'untagged',8000,8000,0,120 missing
+support_tickets.csv,"notes with no text kept, read as 'no note'",8000,8000,0,120 empty notes
+support_tickets.csv,check sub_id joins to subscribers,8000,8000,0,0 tickets without a customer
+campaigns.csv,load,240,240,0,
+campaigns.csv,strip spaces in channel,240,240,0,2 values had extra spaces
+campaigns.csv,strip spaces in target_segment,240,240,0,2 values had extra spaces
+campaigns.csv,check spend = media + messaging + offer + creative,240,240,0,0 mismatches
+campaigns.csv,fill missing target_segment,240,240,0,4 missing
+campaign_contacts.csv,load,107849,107849,0,
+campaign_contacts.csv,drop exact duplicate rows,107849,107687,162,
+campaign_contacts.csv,drop repeated customer within one campaign,107687,107687,0,
+campaign_contacts.csv,flag contacts after 31 May 2026 (30-day window not finished),107687,107687,0,"6394 rows flagged, excluded from lift measurement"

@@ -1,0 +1,84 @@
+{
+  "_about": "Written once by Claude Opus 5.5 (see how_we_did_it.md). The generator fills {name}-style slots, adds the legal footer and runs compliance.check. Customer-facing copy is English, per FACT_SHEET.",
+  "Renewal discount": {
+    "headline": "Your rate plan, NT$100 a month lower",
+    "body": "Your contract is ending soon, and we would like you to stay. Renew on a new 24-month contract and we take NT$100 off your monthly bill for the first 12 months. Same number, nothing to switch.",
+    "cta": "Reply YES and we will set it up",
+    "call_script": "Thank the customer for their time with Formosa. Acknowledge what they told us last time ({reason_text}). Offer NT$100 off the monthly bill for 12 months on a new 24-month contract. If they say yes, confirm the new contract terms and end date. If no, log the reason and do not push."
+  },
+  "Data boost": {
+    "headline": "10 GB extra every month, on us",
+    "body": "We heard that your plan does not always stretch far enough. For the next six months we are adding 10 GB to your monthly data at no extra cost. It starts as soon as you accept.",
+    "cta": "Tap to add your extra data",
+    "call_script": "Acknowledge the customer's concern ({reason_text}). Offer an extra 10 GB a month for six months at no cost. Confirm it does not change their contract. Log the answer."
+  },
+  "Device credit": {
+    "headline": "NT$3,000 toward your next phone",
+    "body": "Your phone has been giving you trouble. Move to a new 30-month premium contract and we put NT$3,000 toward a new handset of your choice. Your number and rate plan benefits stay with you.",
+    "cta": "Book a store visit",
+    "call_script": "Acknowledge the device issue ({reason_text}). Offer NT$3,000 toward a new phone on a new 30-month premium contract. Book a store visit if interested."
+  },
+  "No offer: fix the bill and call back": {
+    "headline": "We are looking at your bill",
+    "body": "You told us your recent bill did not look right. A member of our billing team is checking it and will call you back with the result. If we made an error, we will correct it.",
+    "cta": "No action needed: we will call you",
+    "call_script": "Billing care call. Walk through the bill line by line. If Formosa made the error, correct it (this is not an offer). Log the outcome."
+  },
+  "No offer: network care call": {
+    "headline": "We are checking coverage where you are",
+    "body": "You told us the signal has been weak where you use your phone. Our network team is reviewing your area and will contact you with what we found and what we can do.",
+    "cta": "Reply with the address where it is weakest",
+    "call_script": "Network care call. Confirm the location and time of the problem, open a network ticket, and give a date for the follow-up."
+  },
+  "No offer: care call": {
+    "headline": "Checking in on your service",
+    "body": "Thank you for being with Formosa. We would like to make sure your rate plan still fits how you use your phone. A short call is all it takes.",
+    "cta": "Reply CALL to pick a time",
+    "call_script": "Care call. Ask how the service is going, check the plan fits their usage, log any issue."
+  },
+  "No offer: welcome check-in": {
+    "headline": "Settling in with Formosa",
+    "body": "You joined us recently, so we want to check that your rate plan fits how you use your phone. Open the app to see your usage so far, or reply and we will help you choose.",
+    "cta": "Open the app to see your usage",
+    "call_script": "Welcome call. Check the plan fits their usage and that nothing is wrong with the service. Log any issue."
+  },
+  "Plan upgrade": {
+    "headline": "Move to premium, NT$100 off for four months",
+    "body": "You asked about more from your rate plan. Upgrade from basic to premium and we take NT$100 off your premium bill for the first four months. Same number, more data and benefits.",
+    "cta": "Tap to see your premium price"
+  },
+  "Data add-on": {
+    "headline": "20 GB more each month, first two months free",
+    "body": "If you often run low on data, add 20 GB a month for NT$149. The first two months are free, and you can stop at any time after that.",
+    "cta": "Tap to add 20 GB"
+  },
+  "Roaming pass": {
+    "headline": "Travelling in Asia? Your first 7-day pass is free",
+    "body": "Take your data with you. A 7-day Asia data pass costs NT$499, and your first one is free. Switch it on before you fly and use your phone as you do at home.",
+    "cta": "Tap to claim your free pass"
+  },
+  "Welcome gift": {
+    "headline": "Open a Formosa line and get a welcome gift",
+    "body": "Join Formosa on a qualifying rate plan and receive a welcome gift with your new line. Number portability is simple, and our team handles the transfer.",
+    "cta": "See rate plans"
+  },
+  "In-store new-line gift": {
+    "headline": "A gift with every new line opened in store",
+    "body": "Visit a Formosa Telecom store, open a new line on a qualifying rate plan and take home a gift the same day.",
+    "cta": "Find your nearest store"
+  },
+  "Comeback offer": {
+    "headline": "Welcome back to Formosa",
+    "body": "We have improved our rate plans since you left. Come back on a new contract and get a discount on your first months.",
+    "cta": "See your comeback price"
+  },
+  "_reason_text": {
+    "price": "they felt the plan is expensive or that a rival offers more",
+    "contract": "they are unsure about renewing",
+    "billing": "their bill looked wrong",
+    "network": "signal problems",
+    "device": "a problem with their phone",
+    "data_need": "running out of data",
+    "": "their recent contact with us"
+  }
+}
