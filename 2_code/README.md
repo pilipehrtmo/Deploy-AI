@@ -1,5 +1,7 @@
 # Formosa Signal Engine
 
+Code repository: https://github.com/pilipehrtmo/Deploy-AI
+
 Finds Formosa customers who are about to leave by reading what they tell support agents,
 matches each one to an approved offer, writes the campaign, and checks every past campaign
 against the group that was held back on purpose.
