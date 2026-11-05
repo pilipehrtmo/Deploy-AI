@@ -1,8 +1,10 @@
 ﻿key,what,value,why
-save_rate,Share of would-be leavers we keep after contact,10% / 20% / 35%,"Unknown (FACT_SHEET). The pilot exists to measure it. Below the break-even rate, stop."
+save_rate,Share of would-be leavers we keep after contact,20% planning figure; 10% and 35% shown,"Unknown (Vivian, round 2). Why 20%: about 4 in 5 reasons flagged customers give (price, rival, renewal) have a matching approved offer; we assume one in four of those would-be leavers accepts and stays. Below 2.2% the pilot loses money; 2.2%-6.2% makes money but cannot be proven in 90 days; 6.2%+ is proven."
 churn_in_60d_flagged,Share of flagged customers who leave within 60 days without action,from backtest,"Measured on Mar/Apr/May 2026 cutoffs, notes before cutoff only."
 offer_takers,Customers who take the offer per customer saved,1.5,Some customers who would have stayed also take the offer; this cost is counted.
-value_per_save,Credit for one saved customer,6 x monthly bill,Finance rule (FACT_SHEET): six months of revenue. Lifetime value is higher; not counted.
+value_per_save,Credit for one saved customer,monthly bill x months they keep paying (max 6),"Finance rule, confirmed by Vivian: six months of the full bill, stopping if they cancel. Flagged customers who are still with us after 60 days leave at about 12% a month (data), so a kept customer pays about 4.4 of the 6 months on average."
+calls,Outbound call cost,NT$2 per number dialled + NT$25 per conversation,"Vivian: two charges, per conversation not per minute. Solved exactly from the 6 call campaigns in campaigns.csv; about 7.5% of dials became conversations. Care call-backs count toward the 2,000 a month."
+lifetime,"Longer view, shown beside the 6-month credit",24 months at the observed churn rate,"Vivian: start with the six-month credit, a lifetime view may sit beside it. New customers: 1.8% monthly churn (postpaid average). Kept at-risk customers: their own higher rate."
 upsell_take,Share of customers who asked about it in a note and then buy,3% / 6% / 10%,Past broad upsell added about 0.16 points over holdout; asked-for offers should do better. Pilot measures it.
 scale,Sample to full base,x130,FACT_SHEET: sample is about 1 in 130.
 flow,New flagged customers per month,90-day audience / 3,Audience uses notes from the last 90 days.

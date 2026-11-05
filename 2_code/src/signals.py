@@ -121,12 +121,15 @@ def retention_offer(r):
 
 def upsell_offer(r):
     topics = r["topics"] if isinstance(r["topics"], str) else ""
-    if "roaming_interest" in topics and r["is_postpaid"]:
-        return "Roaming pass"
+    # Prepaid customers may take Data add-on and Roaming pass (Vivian, round 2); Plan upgrade is basic -> premium only.
+    # One offer per customer (Vivian, round 2). When more than one fits, the one that earns most wins:
+    # Plan upgrade, then Data add-on, then Roaming pass (the free first pass costs more than one later pass earns).
     if r["plan_type"] == "postpaid_basic" and ("wants_more_data" in topics or "plan_question" in topics):
         return "Plan upgrade"
-    if r["is_postpaid"] and not r["unlimited_data"] and ("wants_more_data" in topics or "data_speed" in topics):
+    if not r["unlimited_data"] and ("wants_more_data" in topics or "data_speed" in topics):
         return "Data add-on"
+    if "roaming_interest" in topics:
+        return "Roaming pass"
     return None
 
 

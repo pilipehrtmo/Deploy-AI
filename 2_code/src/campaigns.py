@@ -60,7 +60,7 @@ def build_campaigns(members, templates):
             "campaign": f"{aud} | {offer}", "audience": aud, "who": g["tier_reason"].iloc[0],
             "offer": offer, "channel": channel, "channel_plan": plan,
             "customers_in_sample": len(g), "customers_at_full_scale": len(g) * SCALE,
-            "timing": "within 7 days of the note; refresh weekly" if aud.startswith("retention_R1") or aud.startswith("retention_R2")
+            "timing": "within 2 days of the note; daily notes file" if aud.startswith("retention_R1") or aud.startswith("retention_R2")
             else "monthly batch",
             "headline": msg["headline"], "body": msg["body"], "cta": msg["cta"],
             "compliant": not msg["problems"], "problems": "; ".join(msg["problems"]),

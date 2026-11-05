@@ -242,6 +242,8 @@ def build(R, root):
     ch = Charts(os.path.join(root, "1_report", "charts"))
     make_charts(R, ch)
     K = R["K"]
+    import sizing
+    K["months24"] = sizing.months_paid(K["monthly_churn"], 24)
     hc = os.path.join(root, "3_ai_outputs", "hand_check", "result.json")
     if os.path.exists(hc):
         import json
@@ -323,7 +325,7 @@ reaches people who leave at {pct(K['ce_rate'])}: barely above average. Nobody re
 </div>
 <p class="small">Net margin at Formosa's full scale (sample ×130), 60% margin, six months of credited revenue per customer as Finance counts it. Ranges and assumptions in Part 4.</p>
 <h3>1 · Reduce churn</h3>
-<p><b>Do:</b> read every support note each week, flag postpaid customers who say they may leave, and answer their reason with the approved offer that fits it
+<p><b>Do:</b> read every support note each day, flag postpaid customers who say they may leave, and answer their reason with the approved offer that fits it
 (Renewal discount, Data boost or Device credit), calling the highest-bill customers first. Billing errors and network problems get fixed, not discounted.
 <b>Worth:</b> {twd(K['churn_low'])} to {twd(K['churn_high'])} net margin a year, keeping {n(K['kept_low'])}–{n(K['kept_high'])} customers.</p>
 <h3>2 · Earn more from existing customers</h3>
@@ -382,7 +384,9 @@ Where the rival simply offers more for the money, Data boost (NT$300) is the che
 {table(R['rival_themes'], ['theme','sentences','share'], ['What the note says','Sentences','Share'], {'sentences': n, 'share': pct})}
 {table(R['rivals'], ['rival','customers','mentions','churn_6m'], ['Rival named','Customers (sample)','Mentions','Left Jan–Jun 2026'], {'customers': n, 'mentions': n, 'churn_6m': pct})}
 <h3>Room to earn more</h3>
-<p>{n(K['up_aud'])} customers at full scale asked about more data, a bigger plan or roaming in a note in the last 90 days. That is a short, warm list; past broad blasts went to tens of thousands with no reason to buy.</p>
+<p>{n(K['up_aud'])} customers at full scale asked about more data, a bigger plan or roaming in a note in the last 90 days. That is a short, warm list; past broad blasts went to tens of thousands with no reason to buy.
+Not every offer earns money: the first Roaming pass is free (NT$499 cost) and each later pass adds NT$299 of margin, so a buyer must take two more passes within six months before it pays. Plan upgrade earns about NT$1,000 margin per buyer and goes first.
+{n(K['p2p_prepaid'])} prepaid customers in the sample (about {n(K['p2p_prepaid'] * 130)} at full scale) asked to move to a monthly plan. There is no approved offer for that today; we flag it as unmet demand.</p>
 <h3>How acquisition performs</h3>
 {ch.img('5_paid')}
 {table(R['paid_by_ch'].sort_values('cost_per_line'), ['channel','campaigns','spend','new_lines','cost_per_line','margin_roas_6m','median_payback_months'], ['Channel','Campaigns','Spend','New lines','Cost per line','6-month margin return','Payback (months)'], {'campaigns': n, 'spend': twd, 'new_lines': n, 'cost_per_line': twd, 'margin_roas_6m': lambda v: f"{v:.2f}×", 'median_payback_months': lambda v: f"{v:.1f}"})}
@@ -405,7 +409,10 @@ and the acquisition shift {twd(K['acq_low'])}–{twd(K['acq_high'])}. The number
 <p class="small">Plus {twd(K['roam_spend_year'])} a year of roaming campaign spend that caused no extra sales. The earn-more range in Part 1 adds this saving.</p>
 <h3>3 · Win new</h3>
 {table(R['acq'], ['annual_paid_spend_twd','lines_if_all_best','lines_if_all_worst','extra_lines_from_shift','extra_6m_margin_from_shift_twd'], ['Paid spend / year','Lines at Google Search cost','Lines at Retail cost','Extra lines','Extra 6-month margin'], {'annual_paid_spend_twd': twd, 'lines_if_all_best': n, 'lines_if_all_worst': n, 'extra_lines_from_shift': n, 'extra_6m_margin_from_shift_twd': twd})}
-<p class="small">Upper bound: not all spend can move to one channel. Counted on Finance's six-month rule; customers who stay longer are worth more.</p>
+<p class="small">Upper bound: not all spend can move to one channel. Counted on Finance's six-month rule.</p>
+<h3>Beside the six-month credit: a 24-month view</h3>
+<p>Finance books six months. Customers who stay longer are worth more: at the average postpaid churn of {pct(K['monthly_churn'])} a month, a new line pays about {K['months24']:.0f} of the next 24 months.</p>
+{table(R['acq_life'], ['channel','cost_per_line','margin_6m_per_line','return_6m','margin_24m_per_line','return_24m'], ['Channel','Cost per new line','Margin, 6 months','Return, 6 months','Margin, 24 months','Return, 24 months'], {'cost_per_line': twd, 'margin_6m_per_line': twd, 'return_6m': lambda v: f'{v:.2f}×', 'margin_24m_per_line': twd, 'return_24m': lambda v: f'{v:.2f}×'})}
 <h3>The assumptions that matter most</h3>
 {table(R['assump'], ['what','value','why'], ['Assumption','Value','Why'])}
 <p><b>What would change our mind:</b> if the pilot's held-back group leaves at the same rate as the contacted group by day 45, retention aimed at notes does not work at these offers, and the money should go to fixing the billing and network causes instead.</p>
@@ -425,7 +432,7 @@ gets the legal footer added by code, and passes an automatic compliance check. {
 <tr><td>R3 new</td><td>Joined less than six months ago</td><td>Welcome check-in, no paid offer</td></tr>
 <tr><td>R4 unhappy, quiet</td><td>Billing or network complaint, no leave talk</td><td>Fix it: billing care or network care, no paid offer</td></tr>
 <tr><td>Excluded</td><td>Line closing for a reason no offer changes; family and business plans</td><td>Nothing</td></tr></table>
-<p class="small">Offer match: device problem on a premium plan → Device credit; price, rival or renewal doubt within four months of contract end → Renewal discount; price or data need and not unlimited → Data boost; billing error → fix it (not an offer); network → care call.</p>
+<p class="small">One offer per customer. When more than one fits, the first match in this order wins. Retention: Device credit, Renewal discount, Data boost. Upsell: Plan upgrade, Data add-on, Roaming pass. Offer match: device problem on a premium plan → Device credit; price, rival or renewal doubt within four months of contract end → Renewal discount; price or data need and not unlimited → Data boost; billing error → fix it (not an offer); network → care call.</p>
 <h3>New campaigns</h3>
 {table(camp, ['campaign','channel','customers_at_full_scale','timing','headline','compliant'], ['Audience | offer','Channel','Customers (full base)','Timing','Headline','Compliant'], {'customers_at_full_scale': n})}
 <h3>Example message (as sent, {ex['channel']})</h3>
@@ -451,11 +458,11 @@ The pilot is built so this mistake cannot happen again: 20% held back at random 
 {table(roas, ['objective','campaigns','spend','reported_revenue','reported_roas','incremental_roas','incremental_margin_roas'], ['Objective','Campaigns','Spend','Reported revenue','Reported ROAS','Real ROAS','Real margin return'], {'campaigns': n, 'spend': twd, 'reported_revenue': twd, 'reported_roas': lambda v: f"{v:.2f}×", 'incremental_roas': lambda v: f"{v:.2f}×", 'incremental_margin_roas': lambda v: f"{v:.2f}×"})}
 <h3>The 90-day pilot</h3>
 <table><tr><th>Item</th><th>Plan</th></tr>
-<tr><td>Who</td><td>Postpaid basic and premium customers in tiers R1 and R2, refreshed weekly from new notes. About {n(mid['flagged_full_base_90d'])} customers over 90 days at full scale.</td></tr>
+<tr><td>Who</td><td>Postpaid basic and premium customers in tiers R1 and R2, refreshed daily from the new notes file and contacted within two days (half of flagged leavers close their line within {K['note_to_close_median']:.0f} days of the note). About {n(mid['flagged_full_base_90d'])} customers over 90 days at full scale.</td></tr>
 <tr><td>Held back</td><td>{n(mid['held_back_20pct'])} (one in five, at random). They get nothing.</td></tr>
-<tr><td>Channels</td><td>{n(mid['outbound_calls'])} outbound calls (2,000 a month, highest bill first); everyone else LINE and SMS.</td></tr>
+<tr><td>Channels</td><td>{n(mid['outbound_calls'])} outbound calls (2,000 a month including care call-backs, highest bill first); everyone else LINE and SMS. Calls cost NT${K['per_dial']:.0f} per number dialled plus NT${K['per_conv']:.0f} per conversation; about {pct(K['conv_rate'], 1)} of dials become a conversation.</td></tr>
 <tr><td>Offers</td><td>Renewal discount, Data boost or Device credit by reason; billing and network problems fixed, not discounted.</td></tr>
-<tr><td>Cost</td><td>{twd(mid['total_cost'])} expected (messages {twd(mid['messaging_cost'])}, offers {twd(mid['offer_cost'])}, creative {twd(mid['creative_cost'])}); at most {twd(K['pilot_cost_high'])}. Hard cap NT$2.5M: offers stop when the cap is reached.</td></tr>
+<tr><td>Cost</td><td>{twd(mid['total_cost'])} expected (messages {twd(mid['messaging_cost'])}, offers {twd(mid['offer_cost'])}, creative {twd(mid['creative_cost'])}); at most {twd(K['pilot_cost_high'])}. Hard cap NT$2.5M: offers stop when the cap is reached. Correcting Formosa's own billing errors is owed to the customer and sits outside the pilot budget.</td></tr>
 <tr><td>Expected</td><td>Keep {n(p.iloc[0]['customers_kept'])}–{n(p.iloc[2]['customers_kept'])} customers; credited revenue {twd(p.iloc[0]['credited_revenue'])}–{twd(p.iloc[2]['credited_revenue'])}.</td></tr>
 <tr><td>Break-even</td><td>Keep {pct(K['breakeven'])} of would-be leavers: churn in the contacted group {pp(K['breakeven_gap'], 2)} percentage points below the held-back group.</td></tr>
 <tr><td>What it can prove</td><td>With {n(mid['held_back_20pct'])} held back, chance alone moves the gap by up to ±{pp(K['noise_95'], 1)} percentage points. The pilot can reliably prove a gap of {pp(K['mde_gap'], 1)} percentage points or more, i.e. a save rate of {pct(K['mde_save'])} or more (95% confidence, 80% power). A save rate between {pct(K['breakeven'])} and {pct(K['mde_save'])} would still make money but cannot be proven in 90 days.</td></tr>
@@ -463,10 +470,14 @@ The pilot is built so this mistake cannot happen again: 20% held back at random 
 <tr><td>Day 90 verdict</td><td>Gap of {pp(K['mde_gap'], 1)} percentage points or more: proven, scale to the full base. Gap above zero but smaller: profitable but unproven, extend 90 days to add customers. Gap at or below zero: stop.</td></tr>
 <tr><td>Measure</td><td>Churn within 60 days of contact, contacted vs held back; offer cost per kept customer; take-up by offer and channel.</td></tr></table>
 {ch.img('6_pilot')}
+<p>On a 24-month view, at the higher churn of kept customers ({pct(K['kept_churn_m'])} a month), the pilot's margin after cost is {twd(R['pilot'].iloc[1]['margin_minus_cost_24m'])} in the {pct(K['planning_save'], 0)} case, against {twd(R['pilot'].iloc[1]['margin_minus_cost'])} on the six-month credit.</p>
+<h3>How many to hold back</h3>
+<p>Vivian accepts 20% or a smaller group if it can still read the result. A smaller group reaches more customers but can only prove a larger effect. We keep 20%.</p>
+{table(R['hold'], ['held_back_share','held_back_customers','smallest_provable_save_rate','customers_not_kept_because_held_back','margin_forgone_twd'], ['Held back','Customers held back','Smallest save rate it can prove','Customers not kept (20% save rate)','Margin forgone'], {'held_back_share': lambda v: pct(v, 0), 'held_back_customers': n, 'smallest_provable_save_rate': pct, 'customers_not_kept_because_held_back': n, 'margin_forgone_twd': twd})}
 <h3>Risks</h3>
 <ul><li><b>Save rate unknown.</b> Formosa has never run reason-matched retention. The held-back group measures it, but only effects of {pct(K['mde_save'], 0)} or more can be proven in 90 days.</li>
 <li><b>Offers taken by people who would have stayed.</b> Costed at 1.5 takers per customer kept.</li>
-<li><b>Coverage.</b> Notes catch about {pct(K['sig_share'], 0)} of leavers. Next phase: the R3 welcome check-in, and asking agents to log every contact.</li>
+<li><b>Coverage.</b> Notes catch about {pct(K['sig_share'], 0)} of leavers. Agents note almost every contact, so the rest are leavers who never contact support. Next phase: the R3 welcome check-in for new customers.</li>
 <li><b>Call centre capacity.</b> 2,000 calls a month; the rest go to LINE and SMS, so the result is measured by channel.</li></ul>
 <h3>How we used AI</h3>
 <p class="small">Claude Opus 5.5 read the 403 distinct sentences that make up all 8,000 notes once and labelled each with a topic and a leave-intent level; it also wrote the message templates. The code only looks these up, so the results rerun offline. See 3_ai_outputs/how_we_did_it.md.</p>
@@ -505,7 +516,7 @@ Vivian needs to know who is leaving, who will buy more, and which acquisition pa
 <div><div class="k"><b>{twd(mid['total_cost'])}</b>expected cost, max {twd(K['pilot_cost_high'])}</div><div class="k"><b>{pct(K['breakeven'])}</b>of would-be leavers kept = break-even</div>
 <div class="k"><b>{pct(K['mde_save'], 0)}+</b>save rate the pilot can prove in 90 days (20% held back)</div></div></div></div>""")
     s.append(f"""<div class="s"><div class="n">6 / 6</div><h1>Our recommendation</h1><div class="ask">Approve the 90-day retention pilot: {twd(mid['total_cost'])} expected, inside NT$2.5M,
-for postpaid customers who tell support they may leave.</div><ul><li>Week 1: connect the weekly notes file; first call list to the call centre</li>
+for postpaid customers who tell support they may leave.</div><ul><li>Week 1: connect the daily notes file; first call list to the call centre</li>
 <li>Day 45: stop paid offers if contacted customers leave as often as held-back ones</li><li>Day 90: proven if the gap is {pp(K['mde_gap'], 1)} percentage points or more</li><li>Then: scale retention to the full base; redirect roaming and broad upsell spend</li></ul></div>""")
     return f"<!DOCTYPE html><html><head><meta charset='utf-8'><title>Finals slides</title><style>{css}</style></head><body>{''.join(s)}</body></html>"
 
@@ -548,7 +559,7 @@ Nobody at Formosa reads these notes. Vivian asked who is leaving, why, and what 
 - Day 45: if contacted customers leave as often as held-back ones, paid offers stop.
 
 ## Slide 6 · Our recommendation (A)
-"Approve the pilot. Week one, we connect the weekly notes file and send the first call list.
+"Approve the pilot. Week one, we connect the daily notes file and send the first call list.
 Day 45, we check direction. Day 90, if the gap is {pp(K['mde_gap'], 1)} percentage points or more, scale it to the whole base and move roaming and broad upsell money into it."
 
 ---
@@ -565,7 +576,10 @@ Customers the rules flag leave {K['sig_lift']:.0f}× more often than average on 
 It labelled 403 distinct sentences, not 8,000 notes, so every label can be checked by a person. {K['hand_check_text']} The outcome agrees: flagged customers left at {pct(K['sig_rate'])}. Any sentence it has never seen goes to a review queue as "unknown".
 
 **Notes catch only {pct(K['sig_share'], 0)} of leavers. Isn't that small?**
-It is the precise part: about 1 in 2 flagged customers leave. Most leavers never call support. Next: the welcome check-in for new customers ({K['r3_lift']:.1f}× average churn) and asking agents to log every contact.
+It is the precise part: about 1 in 2 flagged customers leave. Agents note almost every contact, so the others simply never call support. Next: the welcome check-in for new customers ({K['r3_lift']:.1f}× average churn) and asking agents to log every contact.
+
+**What save rate did you assume, and why?**
+{pct(K['planning_save'], 0)}, because about four in five reasons flagged customers give (price, a rival, renewal) have a matching approved offer, and we assume one in four of those would-be leavers accepts and stays. Below {pct(K['breakeven'])} the pilot loses money; between {pct(K['breakeven'])} and {pct(K['mde_save'])} it makes money but cannot be proven in 90 days; above {pct(K['mde_save'])} it is proven.
 
 **Why multiply by 130?**
 The fact sheet says the customer files are a fair 1-in-130 sample of 6.5 million customers.

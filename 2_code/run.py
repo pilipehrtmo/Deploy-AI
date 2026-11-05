@@ -61,6 +61,18 @@ def main():
     bt = signals.backtest(subs, read, CUTOFFS)
     save(bt, "backtest.csv", out)
 
+    # Months a kept customer keeps paying: flagged customers still with us 60 days after 1 March
+    # who then left in the next 61 days (to 30 June) give the later monthly churn rate.
+    ref = pd.Timestamp("2026-03-01")
+    f = signals.score(subs, read, ref)
+    f = f[f["tier"].isin(["R1_leaving_now", "R2_wavering"])]
+    d60 = ref + pd.Timedelta(days=60)
+    surv = f[f["churn_date"].isna() | (f["churn_date"] >= d60)]
+    two_month = (surv["churn_date"].notna() & (surv["churn_date"] <= pd.Timestamp("2026-06-30"))).mean()
+    sizing.KEPT_CHURN_M = sizing.kept_monthly_churn(two_month)
+    sizing.KEPT_MONTHS = sizing.months_paid(sizing.KEPT_CHURN_M, 6)
+    print(f"  kept customers pay {sizing.KEPT_MONTHS:.1f} of 6 credited months (later churn {sizing.KEPT_CHURN_M:.1%}/month)")
+
     print(f"4/6 picking audiences as of {asof.date()}")
     members, flagged, scored = signals.audiences(subs, read, asof)
     save(members, "audience_members.csv", out)
@@ -94,7 +106,7 @@ def main():
     save(sizing.acquisition_value(by_ch), "acquisition_scenarios.csv", out)
     pilot, breakeven, per_msg = sizing.pilot(members, bt, camps)
     save(pilot, "pilot_scenarios.csv", out)
-    save(pd.DataFrame(sizing.ASSUMPTIONS, columns=["key", "what", "value", "why"]), "assumptions.csv", out)
+    save(sizing.assumptions(breakeven, sizing.pilot_power(pilot, bt)["mde_save"]), "assumptions.csv", out)
 
     print("7/7 writing the readable report, workbook and slides")
     R = collect(subs, read, bt, members, flagged, scored, by_obj, roas, by_ch, ca, camp, val, pilot, breakeven,
@@ -145,7 +157,13 @@ def collect(subs, read, bt, members, flagged, scored, by_obj, roas, by_ch, ca, c
                                             churn_6m=("churn_flag", "mean")).reset_index()
     seg_plan["customers_full_base"] = seg_plan["customers"] * sizing.SCALE
 
+    sizing.MONTHLY_CHURN = monthly["churn_rate"].mean()
     acq = sizing.acquisition_value(by_ch)
+    acq_life = sizing.acquisition_lifetime(by_ch)
+    hold = sizing.holdout_options(pilot, bt, members)
+    per_dial, per_conv, conv_rate = sizing.call_charges(camps)
+    p2p = read[read["topics"].str.contains("prepaid_to_postpaid")].merge(subs[["sub_id", "plan_type"]], on="sub_id")
+    p2p_prepaid = p2p.loc[p2p["plan_type"] == "prepaid", "sub_id"].nunique()
     power = sizing.pilot_power(pilot, bt)
     rivals, rival_themes = rival_view(read_raw_notes(tickets), subs)
     acq_q = acquisition_quality(contacts, camps, subs, by_ch)
@@ -175,6 +193,11 @@ def collect(subs, read, bt, members, flagged, scored, by_obj, roas, by_ch, ca, c
         "up_aud": int(members["audience"].str.startswith("upsell_").sum() * sizing.SCALE),
         "flag_fb": len(flagged) * sizing.SCALE,
         "six_month_all": subs["churn_flag"].mean(),
+        "kept_months": sizing.KEPT_MONTHS, "kept_churn_m": sizing.KEPT_CHURN_M,
+        "per_dial": per_dial, "per_conv": per_conv, "conv_rate": conv_rate,
+        "p2p_prepaid": p2p_prepaid, "monthly_churn": sizing.MONTHLY_CHURN,
+        "planning_save": sizing.PLANNING_SAVE_RATE,
+        "note_to_close_median": note_to_close_median(read, subs),
         "mde_gap": power["mde_gap"], "mde_save": power["mde_save"], "noise_95": power["noise_95"],
         "noise_95_day45": power["noise_95_day45"],
         "rival_sentences": int(rival_themes["sentences"].sum()),
@@ -186,8 +209,9 @@ def collect(subs, read, bt, members, flagged, scored, by_obj, roas, by_ch, ca, c
     return {"K": K, "bt_pooled": g, "monthly_churn": monthly, "reasons": rs, "seg_plan": seg_plan,
             "roas": roas, "paid_by_ch": by_ch, "pilot": pilot, "val": val, "acq": acq, "camp": camp,
             "copy_audit": ca, "log": log, "aud": aud, "seg": seg,
-            "assump": pd.DataFrame(sizing.ASSUMPTIONS, columns=["key", "what", "value", "why"]),
-            "rivals": rivals, "rival_themes": rival_themes, "acq_q": acq_q, "members": members}
+            "assump": sizing.assumptions(breakeven, power["mde_save"]),
+            "rivals": rivals, "rival_themes": rival_themes, "acq_q": acq_q, "members": members,
+            "hold": hold, "acq_life": acq_life}
 
 
 RIVAL_THEMES = [  # first match wins
@@ -238,6 +262,13 @@ def acquisition_quality(contacts, camps, subs, by_ch):
     q = q.merge(by_ch[["channel", "cost_per_line"]], on="channel")
     q["cost_per_line_still_with_us"] = q["cost_per_line"] / q["still_with_us"]
     return q.sort_values("cost_per_line_still_with_us")
+
+
+def note_to_close_median(read, subs):
+    """Median days from a leave-intent note to the line closing, postpaid leavers."""
+    r = read[read["leave_intent"] >= 1].merge(subs[["sub_id", "churn_date", "is_postpaid"]], on="sub_id")
+    d = (r.loc[r["is_postpaid"], "churn_date"] - r.loc[r["is_postpaid"], "date"]).dt.days
+    return float(d[d >= 0].median())
 
 
 def n_from(text):

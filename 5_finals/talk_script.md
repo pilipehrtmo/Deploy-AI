@@ -21,17 +21,17 @@ Nobody at Formosa reads these notes. Vivian asked who is leaving, why, and what 
 
 ## Slide 4 · The campaigns (B)
 - Every message: approved offer, legal footer added by code, automatic compliance check. 89 of 240 past campaigns would have failed it.
-- Worth a year at full scale: retention NT$3.7M–NT$13.1M; earn more NT$2.2M–NT$2.6M; acquisition shift NT$1.4M–NT$4.2M.
+- Worth a year at full scale: retention NT$2.1M–NT$7.4M; earn more NT$2.1M–NT$2.5M; acquisition shift NT$1.4M–NT$4.2M.
 - Live demo (30 seconds): open `4_outputs/campaign_builder.html`, pick Renewal discount + SMS + "Price or a rival", show the audience size and the PASS.
 
 ## Slide 5 · The 90-day pilot (B)
 - About 13,000 flagged postpaid customers; one in five held back at random.
 - Expected cost NT$1.1M, at most NT$1.9M, inside NT$2.5M.
-- Break-even: keep 1.3% of would-be leavers. The pilot can prove 6.2% or more.
+- Break-even: keep 2.2% of would-be leavers. The pilot can prove 6.2% or more.
 - Day 45: if contacted customers leave as often as held-back ones, paid offers stop.
 
 ## Slide 6 · Our recommendation (A)
-"Approve the pilot. Week one, we connect the weekly notes file and send the first call list.
+"Approve the pilot. Week one, we connect the daily notes file and send the first call list.
 Day 45, we check direction. Day 90, if the gap is 3.1 percentage points or more, scale it to the whole base and move roaming and broad upsell money into it."
 
 ---
@@ -48,7 +48,10 @@ Customers the rules flag leave 13× more often than average on dates the rules n
 It labelled 403 distinct sentences, not 8,000 notes, so every label can be checked by a person. Two of us are labelling a blind sample of 100 of those sentences to measure agreement; see 3_ai_outputs/hand_check. The outcome agrees: flagged customers left at 49.3%. Any sentence it has never seen goes to a review queue as "unknown".
 
 **Notes catch only 9% of leavers. Isn't that small?**
-It is the precise part: about 1 in 2 flagged customers leave. Most leavers never call support. Next: the welcome check-in for new customers (2.6× average churn) and asking agents to log every contact.
+It is the precise part: about 1 in 2 flagged customers leave. Agents note almost every contact, so the others simply never call support. Next: the welcome check-in for new customers (2.6× average churn) and asking agents to log every contact.
+
+**What save rate did you assume, and why?**
+20%, because about four in five reasons flagged customers give (price, a rival, renewal) have a matching approved offer, and we assume one in four of those would-be leavers accepts and stays. Below 2.2% the pilot loses money; between 2.2% and 6.2% it makes money but cannot be proven in 90 days; above 6.2% it is proven.
 
 **Why multiply by 130?**
 The fact sheet says the customer files are a fair 1-in-130 sample of 6.5 million customers.
@@ -60,4 +63,4 @@ Since July 2025 one in five chosen customers was held back at random. We compare
 It goes only to customers within four months of contract end who raised price or renewal. Customers who only want more data get Data boost at NT$300.
 
 **Why can't the pilot prove the break-even?**
-With 2,600 held back, chance alone moves the result by about ±2.1 percentage points, more than the 0.62%-point break-even gap. We say so up front and give a rule for each outcome instead of over-promising.
+With 2,600 held back, chance alone moves the result by about ±2.1 percentage points, more than the 1.10%-point break-even gap. We say so up front and give a rule for each outcome instead of over-promising.
