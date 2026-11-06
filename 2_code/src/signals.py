@@ -159,6 +159,16 @@ def audiences(subs, read, asof):
     cols = ["sub_id", "audience", "plan_type", "monthly_arpu_twd", "tenure_at_asof", "months_to_contract_end",
             "unlimited_data", "tier", "tier_reason", "reasons", "topics", "rival_named", "offer", "channel_plan"]
     members = pd.concat([ret[cols], up[cols]], ignore_index=True)
+    # One campaign per customer (Vivian, round 2). Retention comes before upsell, and the more urgent tier first:
+    # R1 > R2 > R4 (fix their problem before selling) > R3 > Plan upgrade > Data add-on > Roaming pass.
+    order = ["retention_R1_leaving_now", "retention_R2_wavering", "retention_R4_unhappy_quiet",
+             "retention_R3_new_and_fragile", "upsell_plan_upgrade", "upsell_data_add-on", "upsell_roaming_pass"]
+    members["priority"] = members["audience"].map({a: i for i, a in enumerate(order)})
+    before = len(members)
+    members = members.sort_values(["priority", "sub_id"]).drop_duplicates("sub_id", keep="first")
+    members = members.drop(columns="priority").reset_index(drop=True)
+    members.attrs["overlaps_resolved"] = before - len(members)
+    assert members["sub_id"].is_unique
     flagged = allp[allp["other_team"] & allp["tier"].isin(["R1_leaving_now", "R2_wavering"])][
         ["sub_id", "plan_type", "tier", "tier_reason", "reasons"]]
     return members, flagged, allp

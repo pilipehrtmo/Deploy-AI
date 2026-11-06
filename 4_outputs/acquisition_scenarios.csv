@@ -1,4 +1,4 @@
-﻿objective,annual_paid_spend_twd,best_channel,lines_if_all_best,worst_channel,lines_if_all_worst,extra_lines_from_shift,extra_6m_margin_from_shift_twd
-3 win new,20000000,Google Search,13342,Retail Promotion,12421,921,1399597
-3 win new,40000000,Google Search,26683,Retail Promotion,24842,1841,2799194
-3 win new,60000000,Google Search,40025,Retail Promotion,37263,2762,4198791
+﻿objective,share_moved,spend_moved_twd,from_channel,to_channel,lines_at_old_cost,lines_at_new_cost,extra_lines_from_shift,extra_6m_margin_from_shift_twd,extra_24m_margin_from_shift_twd
+3 win new,0.25,2214584,Retail Promotion,Google Search,1375,1477,102,154976,507031
+3 win new,0.5,4429167,Retail Promotion,Google Search,2751,2955,204,309952,1014062
+3 win new,1.0,8858334,Retail Promotion,Google Search,5502,5909,408,619905,2028125

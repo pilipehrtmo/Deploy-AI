@@ -81,7 +81,10 @@ def retention_value(members, bt):
     offer_cost = ret["offer"].map(OFFER_COST).fillna(0).mean()
     rows = []
     for name, save in [("low", 0.10), ("mid", 0.20), ("high", 0.35)]:
-        saves_year = per_month * 12 * p_leave * save
+        # Same reach as the pilot: up to 2,000 calls a month, the rest one LINE or SMS message where consent allows.
+        msg_reach = CHANNEL_SHARE["LINE"] + (1 - CHANNEL_SHARE["LINE"]) * CHANNEL_SHARE["SMS"]
+        reached = min(CALLS_PER_MONTH, per_month) + max(per_month - CALLS_PER_MONTH, 0) * msg_reach
+        saves_year = reached * 12 * p_leave * save
         revenue = saves_year * bill * KEPT_MONTHS
         cost = saves_year * 1.5 * offer_cost
         rows.append({"objective": "1 churn", "scenario": name, "save_rate": save,
@@ -110,16 +113,22 @@ def upsell_value(members):
 def acquisition_value(paid_by_ch):
     best = paid_by_ch.sort_values("cost_per_line").iloc[0]
     worst = paid_by_ch.sort_values("cost_per_line").iloc[-1]
+    # Realistic shift: move part of the costliest channel's yearly budget to the cheapest one.
+    # Upper bound: Google Search cost per line rose slightly with spend in the data, and its biggest month so far
+    # was NT$2.5M, so we do not assume it can absorb all paid spend.
+    yearly_worst = worst["spend"] / 2   # campaigns.csv covers 24 months
+    bill = paid_by_ch["revenue_6m"].sum() / paid_by_ch["new_lines"].sum() / CREDIT_MONTHS
     rows = []
-    for spend in [20_000_000, 40_000_000, 60_000_000]:
-        lines_best = spend / best["cost_per_line"]
-        lines_worst = spend / worst["cost_per_line"]
-        bill = paid_by_ch["revenue_6m"].sum() / paid_by_ch["new_lines"].sum() / CREDIT_MONTHS
-        rows.append({"objective": "3 win new", "annual_paid_spend_twd": spend,
-                     "best_channel": best["channel"], "lines_if_all_best": round(lines_best),
-                     "worst_channel": worst["channel"], "lines_if_all_worst": round(lines_worst),
-                     "extra_lines_from_shift": round(lines_best - lines_worst),
-                     "extra_6m_margin_from_shift_twd": round((lines_best - lines_worst) * bill * CREDIT_MONTHS * MARGIN)})
+    for share in (0.25, 0.50, 1.00):
+        moved = yearly_worst * share
+        extra = moved / best["cost_per_line"] - moved / worst["cost_per_line"]
+        rows.append({"objective": "3 win new", "share_moved": share, "spend_moved_twd": round(moved),
+                     "from_channel": worst["channel"], "to_channel": best["channel"],
+                     "lines_at_old_cost": round(moved / worst["cost_per_line"]),
+                     "lines_at_new_cost": round(moved / best["cost_per_line"]),
+                     "extra_lines_from_shift": round(extra),
+                     "extra_6m_margin_from_shift_twd": round(extra * bill * CREDIT_MONTHS * MARGIN),
+                     "extra_24m_margin_from_shift_twd": round(extra * bill * months_paid(MONTHLY_CHURN, 24) * MARGIN)})
     return pd.DataFrame(rows)
 
 
@@ -135,17 +144,24 @@ def pilot(members, bt, camps):
     rest = treated - calls
     per_dial, per_conv, conv_rate = call_charges(camps)
     call_cost = calls * (per_dial + conv_rate * per_conv)
-    msg_cost = call_cost + rest * (per_msg.get("SMS", 0.25) + per_msg.get("LINE", 0.2))
+    # Customers not called get one message: LINE if they follow Formosa there, else SMS if they agreed to SMS
+    # (consent shares from the fact sheet, assumed independent). The rest cannot be reached by an owned message.
+    line_share = CHANNEL_SHARE["LINE"]
+    sms_share = (1 - line_share) * CHANNEL_SHARE["SMS"]
+    reached_rest = rest * (line_share + sms_share)
+    msg_cost = call_cost + rest * (line_share * per_msg.get("LINE", 0.2) + sms_share * per_msg.get("SMS", 0.25))
+    contacted = calls + reached_rest
     bill = ret["monthly_arpu_twd"].mean()
     offer_cost = ret["offer"].map(OFFER_COST).fillna(0).mean()
     rows = []
     for name, save in [("low", 0.10), ("mid", 0.20), ("high", 0.35)]:
-        saves = treated * p_leave * save
+        saves = contacted * p_leave * save   # only customers we actually reach can be kept
         offers = saves * 1.5 * offer_cost
         total = msg_cost + offers + creative * 3
         revenue = saves * bill * KEPT_MONTHS
         rows.append({"scenario": name, "save_rate": save, "flagged_full_base_90d": flagged_90d,
                      "treated": treated, "held_back_20pct": held_back, "outbound_calls": calls,
+                     "contacted": round(contacted), "not_reachable": round(treated - contacted),
                      "messaging_cost": round(msg_cost), "offer_cost": round(offers), "creative_cost": round(creative * 3),
                      "total_cost": round(total), "within_budget": total <= BUDGET,
                      "customers_kept": round(saves), "credited_revenue": round(revenue),
@@ -155,7 +171,7 @@ def pilot(members, bt, camps):
     # Break-even save rate: margin from saves = cost.
     fixed = msg_cost + creative * 3
     per_save_margin = bill * KEPT_MONTHS * MARGIN - 1.5 * offer_cost
-    breakeven = fixed / (treated * p_leave * per_save_margin)
+    breakeven = fixed / (contacted * p_leave * per_save_margin)
     return df, breakeven, per_msg
 
 

@@ -61,15 +61,19 @@ def main():
     bt = signals.backtest(subs, read, CUTOFFS)
     save(bt, "backtest.csv", out)
 
-    # Months a kept customer keeps paying: flagged customers still with us 60 days after 1 March
-    # who then left in the next 61 days (to 30 June) give the later monthly churn rate.
-    ref = pd.Timestamp("2026-03-01")
-    f = signals.score(subs, read, ref)
-    f = f[f["tier"].isin(["R1_leaving_now", "R2_wavering"])]
-    d60 = ref + pd.Timedelta(days=60)
-    surv = f[f["churn_date"].isna() | (f["churn_date"] >= d60)]
-    two_month = (surv["churn_date"].notna() & (surv["churn_date"] <= pd.Timestamp("2026-06-30"))).mean()
-    sizing.KEPT_CHURN_M = sizing.kept_monthly_churn(two_month)
+    # Months a kept customer keeps paying: flagged customers still with us 60 days after a cutoff, and how many
+    # of them then left before 30 June. Pooled over the 1 March and 1 April cohorts (person-months at risk).
+    left_n, months_at_risk = 0, 0.0
+    for ref in (pd.Timestamp("2026-03-01"), pd.Timestamp("2026-04-01")):
+        f = signals.score(subs, read, ref)
+        f = f[f["tier"].isin(["R1_leaving_now", "R2_wavering"])]
+        d60 = ref + pd.Timedelta(days=60)
+        surv = f[f["churn_date"].isna() | (f["churn_date"] >= d60)]
+        end = pd.Timestamp("2026-06-30")
+        stop = surv["churn_date"].where(surv["churn_date"] <= end, end).fillna(end)
+        left_n += int((surv["churn_date"].notna() & (surv["churn_date"] <= end)).sum())
+        months_at_risk += float(((stop - d60).dt.days / 30.44).sum())
+    sizing.KEPT_CHURN_M = left_n / months_at_risk
     sizing.KEPT_MONTHS = sizing.months_paid(sizing.KEPT_CHURN_M, 6)
     print(f"  kept customers pay {sizing.KEPT_MONTHS:.1f} of 6 credited months (later churn {sizing.KEPT_CHURN_M:.1%}/month)")
 
@@ -180,8 +184,8 @@ def collect(subs, read, bt, members, flagged, scored, by_obj, roas, by_ch, ca, c
         "churn_low": vc.loc[("1 churn", "low"), "net_margin_twd"], "churn_high": vc.loc[("1 churn", "high"), "net_margin_twd"],
         "kept_low": vc.loc[("1 churn", "low"), "customers_kept_per_year"], "kept_high": vc.loc[("1 churn", "high"), "customers_kept_per_year"],
         "roam_spend_year": roam_year,
-        "up_low": vc.loc[("2 earn more", "low"), "net_margin_twd"] + roam_year,
-        "up_high": vc.loc[("2 earn more", "high"), "net_margin_twd"] + roam_year,
+        "up_low": vc.loc[("2 earn more", "low"), "net_margin_twd"],
+        "up_high": vc.loc[("2 earn more", "high"), "net_margin_twd"],
         "acq_low": acq["extra_6m_margin_from_shift_twd"].min(), "acq_high": acq["extra_6m_margin_from_shift_twd"].max(),
         "best_cpl": by_ch["cost_per_line"].min(), "worst_cpl": by_ch["cost_per_line"].max(),
         "pilot_cost_low": pilot["total_cost"].min(), "pilot_cost_high": pilot["total_cost"].max(),
@@ -200,6 +204,8 @@ def collect(subs, read, bt, members, flagged, scored, by_obj, roas, by_ch, ca, c
         "note_to_close_median": note_to_close_median(read, subs),
         "mde_gap": power["mde_gap"], "mde_save": power["mde_save"], "noise_95": power["noise_95"],
         "noise_95_day45": power["noise_95_day45"],
+        "day45_stop": 1.5 * power["noise_95_day45"] / 1.96,
+        "overlaps": int(members.attrs.get("overlaps_resolved", 0)),
         "rival_sentences": int(rival_themes["sentences"].sum()),
         "rival_customers": int(rivals["customers"].sum()),
         "rival_churn_min": rivals["churn_6m"].min(), "rival_churn_max": rivals["churn_6m"].max(),

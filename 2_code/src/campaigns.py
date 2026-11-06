@@ -15,13 +15,12 @@ def draft(templates, offer, channel, reason=""):
     """Build one message for an offer on a channel. Returns dict with copy and compliance result."""
     t = templates[offer]
     reason_text = templates["_reason_text"].get(reason, templates["_reason_text"][""])
-    if channel == "Outbound Call":
-        body = t.get("call_script", t["body"]).format(reason_text=reason_text)
-        msg = {"headline": t["headline"], "body": body, "cta": t["cta"]}
-        msg["problems"] = []  # scripts are read by agents, not sent; footer read out on request
-        return msg
     footer = SHORT_FOOTER if channel in SHORT_OK_CHANNELS else FOOTER
-    if channel == "SMS":
+    if channel == "Outbound Call":
+        # The agent reads the full legal footer, word for word, as the last thing before ending the call.
+        script = t.get("call_script", t["body"]).format(reason_text=reason_text)
+        body = f"{script}\n\nBefore ending the call, read word for word:\n\n{FOOTER}"
+    elif channel == "SMS":
         body = f"Formosa: {t['body']} {t['cta']}.\n\n{footer}"
     else:
         body = f"{t['body']}\n\n{footer}"

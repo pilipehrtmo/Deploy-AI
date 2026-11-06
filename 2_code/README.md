@@ -42,6 +42,13 @@ and `5_finals/slides.html`. To make the PDFs, open either HTML file in Chrome or
 
 ---
 
+## On GitHub: why some outputs are missing
+
+The GitHub copy leaves out the case data and the five per-customer tables (`customers_clean.csv`, `notes_read.csv`,
+`audience_members.csv`, `flagged_family_business.csv`, `review_queue.csv`), because the case rules keep the data inside
+the team. The Drive hand-in has all of them. From a GitHub clone, put the data in `data/raw/` and run `python run.py`
+first; `make_campaign.py` then works.
+
 ## For marketers: the campaign builder (no install needed)
 
 Double-click `4_outputs/campaign_builder.html`. Pick an offer, a channel, who, and the reason in their note: you get the audience size, the finished message with the legal footer, and a PASS/FAIL brand check, with a button to copy the message.
