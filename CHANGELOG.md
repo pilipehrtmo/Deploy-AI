@@ -1,5 +1,9 @@
 # Changelog
 
+## 8 Nov 2026: two stale sentences fixed
+- Assumptions: kept customers' later churn now reads the computed figure (13.7% a month, March and April cohorts pooled) instead of the old fixed text "about 12%".
+- Part 4: removed "the earn-more range in Part 1 adds this saving"; roaming spend saved is shown apart from new margin, not added to it.
+
 ## 6 Nov 2026: fixes from an external review, checked against the data
 
 | Review point | Verdict | What changed |

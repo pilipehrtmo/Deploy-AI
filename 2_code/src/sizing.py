@@ -28,7 +28,7 @@ ASSUMPTIONS = [
      "Some customers who would have stayed also take the offer; this cost is counted."),
     ("value_per_save", "Credit for one saved customer", "monthly bill x months they keep paying (max 6)",
      "Finance rule, confirmed by Vivian: six months of the full bill, stopping if they cancel. Flagged customers "
-     "who are still with us after 60 days leave at about 12% a month (data), so a kept customer pays about "
+     "who are still with us after 60 days leave at about {kept_churn} a month (data, March and April cohorts pooled), so a kept customer pays about "
      "{kept:.1f} of the 6 months on average."),
     ("calls", "Outbound call cost", "NT$2 per number dialled + NT$25 per conversation",
      "Vivian: two charges, per conversation not per minute. Solved exactly from the 6 call campaigns in "
@@ -222,6 +222,6 @@ def acquisition_lifetime(paid_by_ch):
 
 def assumptions(breakeven, mde_save):
     """The ASSUMPTIONS table with this run's numbers filled in."""
-    vals = {"breakeven": f"{breakeven:.1%}", "mde": f"{mde_save:.1%}", "kept": KEPT_MONTHS}
+    vals = {"breakeven": f"{breakeven:.1%}", "mde": f"{mde_save:.1%}", "kept": KEPT_MONTHS, "kept_churn": f"{KEPT_CHURN_M:.1%}"}
     rows = [(k, w, v, why.format(**vals)) for k, w, v, why in ASSUMPTIONS]
     return pd.DataFrame(rows, columns=["key", "what", "value", "why"])
