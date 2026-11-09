@@ -20,8 +20,7 @@ offline and gives the same result every time.
 Why per sentence and not per note: 403 labels can be checked by a person in under an hour, and
 the same sentence always gets the same label.
 
-**Checks.** A blind hand check by two team members is set up in `hand_check/`
-(sheet + `check_labels.py`); its result is added below when run. Outcome check: customers whose notes carry intent ≥ 1
+**Checks.** Outcome check: customers whose notes carry intent ≥ 1
 left at a 49–52% rate in the next 60 days vs 3.7% for all postpaid customers (`backtest.csv`).
 
 ## Step 2: campaign copy → `copy_templates.json`
@@ -30,3 +29,17 @@ Claude wrote one headline, body, call to action and call script per approved off
 `brand_guidelines.md`. The code adds the legal footer (full footer, or the short terms line on
 SMS and LINE only) and runs `src/compliance.py` on every draft: footer verbatim, no banned claim
 or paraphrase, approved offer for the objective.
+
+<!-- hand-check:start -->
+
+**Label check.** 100 sentences (all 75 the AI marked as leave intent plus 25 random others) were labelled again from the written definitions in the Guide sheet and compared with the first labels.
+
+| Labeler | Who | Sentences | Leave / not leave agrees | Exact intent level agrees | Topic agrees | Kappa (leave / not) |
+|---|---|---:|---:|---:|---:|---:|
+| Labeler A | Claude Opus 5.5, second labelling pass from the written definitions (same model as the first labels, so this checks consistency, not independent human agreement) | 100 | 100% | 86% | 98% | 1.00 |
+
+Disagreements that would move a customer between tiers (no signal / R2 / R1): 0. A difference between intent 1 and 2 keeps the customer in R2, so it changes no audience or NT$ figure.
+
+Every disagreement is listed in `hand_check/disagreements.csv`.
+
+<!-- hand-check:end -->

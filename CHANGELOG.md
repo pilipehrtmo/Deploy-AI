@@ -1,5 +1,8 @@
 # Changelog
 
+## 9 Nov 2026: label check
+- The organizers allowed AI for the hand check. Labeler A is a second Claude Opus 5.5 pass from the written definitions (same model as the first labels, so it checks consistency, not independent human agreement): 100% agreement on leave / not leave, 86% on the exact intent level, 98% on topic. All 14 intent disagreements are 1 vs 2, which keeps the customer in R2, so no audience or NT$ figure changes. Labeler B is left for a team member.
+
 ## 8 Nov 2026: two stale sentences fixed
 - Assumptions: kept customers' later churn now reads the computed figure (13.7% a month, March and April cohorts pooled) instead of the old fixed text "about 12%".
 - Part 4: removed "the earn-more range in Part 1 adds this saving"; roaming spend saved is shown apart from new margin, not added to it.

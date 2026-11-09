@@ -249,8 +249,13 @@ def build(R, root):
         import json
         with open(hc, encoding="utf-8") as f:
             h = json.load(f)
-        K["hand_check_text"] = (f"{h['labelers']} of us labelled {h['sentences']} sentences blind; we agreed with the AI on "
-                                f"leave / not leave for {h['flag_agree'] * 100:.0f}% of them and on the topic for {h['topic_agree'] * 100:.0f}%.")
+        parts = []
+        for r in h.get("per_labeler", []):
+            src = "a second Claude pass" if r.get("description", "").startswith("Claude") else "a team member"
+            parts.append(f"{src} agreed with the first labels on leave / not leave for {r['flag_agree'] * 100:.0f}% "
+                         f"and on the exact intent level for {r['intent_exact'] * 100:.0f}%")
+        K["hand_check_text"] = (f"We relabelled a sample of {h['sentences']} sentences from the written definitions: "
+                                + "; ".join(parts) + ". The disagreements are listed in hand_check/disagreements.csv.")
     else:
         K["hand_check_text"] = ("Every label can be read by a person in under an hour, and a blind sample of 100 is "
                                 "ready for two of us to label (3_ai_outputs/hand_check).")

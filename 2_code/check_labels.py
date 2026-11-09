@@ -54,6 +54,8 @@ def main():
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(errors="replace")
     ai = pd.read_csv(os.path.join(ROOT, "3_ai_outputs", "sentence_labels.csv"))
+    who_path = os.path.join(CHECK, "labelers.json")
+    who = json.load(open(who_path, encoding="utf-8")) if os.path.exists(who_path) else {}
     results, disagree = [], []
     filled = {}
     for sheet in ["Labeler A", "Labeler B"]:
@@ -79,28 +81,36 @@ def main():
     pd.concat(disagree).to_csv(os.path.join(CHECK, "disagreements.csv"), index=False, encoding="utf-8-sig")
     res = pd.DataFrame(results)
     flag = res["flag_agree"].mean()
+    for r in results:
+        r["description"] = who.get(r["who"], "team member")
     summary = {"labelers": len(results), "sentences": int(res["sentences"].max()),
+               "per_labeler": [{k: (float(v) if isinstance(v, float) else v) for k, v in r.items()} for r in results],
                "flag_agree": flag, "intent_exact": res["intent_exact"].mean(),
                "topic_agree": res["topic_agree"].mean(), "flag_kappa": res["flag_kappa"].mean(),
                "human_vs_human": ab}
     with open(os.path.join(CHECK, "result.json"), "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2, default=float)
 
-    lines = [START, "", "**Hand check (blind).** "
-             f"{len(results)} team member(s) labelled {summary['sentences']} sentences without seeing the AI labels: "
-             "all 75 the AI marked as leave intent plus 25 random others.", "",
-             "| Labeler | Sentences | Leave / not leave agrees | Exact intent level agrees | Topic agrees | Kappa (leave / not) |",
-             "|---|---:|---:|---:|---:|---:|"]
+    lines = [START, "", "**Label check.** "
+             f"{summary['sentences']} sentences (all 75 the AI marked as leave intent plus 25 random others) were "
+             "labelled again from the written definitions in the Guide sheet and compared with the first labels.", "",
+             "| Labeler | Who | Sentences | Leave / not leave agrees | Exact intent level agrees | Topic agrees | Kappa (leave / not) |",
+             "|---|---|---:|---:|---:|---:|---:|"]
     for r in results:
-        lines.append(f"| {r['who']} | {r['sentences']} | {r['flag_agree']:.0%} | {r['intent_exact']:.0%} | "
-                     f"{r['topic_agree']:.0%} | {r['flag_kappa']:.2f} |")
+        lines.append(f"| {r['who']} | {r['description']} | {r['sentences']} | {r['flag_agree']:.0%} | "
+                     f"{r['intent_exact']:.0%} | {r['topic_agree']:.0%} | {r['flag_kappa']:.2f} |")
     if ab:
         lines += ["", f"The two team members agreed with each other on leave / not leave for {ab['flag_agree']:.0%} "
                       f"of sentences and on the exact topic for {ab['topic_agree']:.0%}, so the AI is about as consistent "
                       "as a second person." if abs(ab["flag_agree"] - flag) < 0.05 else
                       f"The two team members agreed with each other on leave / not leave for {ab['flag_agree']:.0%} "
                       f"of sentences and on the exact topic for {ab['topic_agree']:.0%}."]
-    lines += ["", "Every disagreement is listed in `hand_check/disagreements.csv`.", "", END]
+    allm = pd.concat([compare(filled[k], ai, k)[1] for k in filled])
+    moved = int(((allm["leave_intent_human"] >= 3) != (allm["leave_intent_ai"] >= 3)).sum()
+                + ((allm["leave_intent_human"] >= 1) != (allm["leave_intent_ai"] >= 1)).sum())
+    lines += ["", f"Disagreements that would move a customer between tiers (no signal / R2 / R1): {moved}. "
+                  "A difference between intent 1 and 2 keeps the customer in R2, so it changes no audience or NT$ figure.",
+              "", "Every disagreement is listed in `hand_check/disagreements.csv`.", "", END]
     block = "\n".join(lines)
 
     with open(HOW, encoding="utf-8") as f:

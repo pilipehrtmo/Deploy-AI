@@ -1,0 +1,4 @@
+{
+  "Labeler A": "Claude Opus 5.5, second labelling pass from the written definitions (same model as the first labels, so this checks consistency, not independent human agreement)",
+  "Labeler B": "team member"
+}

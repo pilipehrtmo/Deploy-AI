@@ -1,0 +1,20 @@
+{
+  "labelers": 1,
+  "sentences": 100,
+  "per_labeler": [
+    {
+      "who": "Labeler A",
+      "sentences": 100,
+      "intent_exact": 0.86,
+      "flag_agree": 1.0,
+      "flag_kappa": 1.0,
+      "topic_agree": 0.98,
+      "description": "Claude Opus 5.5, second labelling pass from the written definitions (same model as the first labels, so this checks consistency, not independent human agreement)"
+    }
+  ],
+  "flag_agree": 1.0,
+  "intent_exact": 0.86,
+  "topic_agree": 0.98,
+  "flag_kappa": 1.0,
+  "human_vs_human": null
+}

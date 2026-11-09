@@ -45,7 +45,7 @@ Then we find out cheaply. Offers cost money only when taken, and the NT$2.5M cap
 Customers the rules flag leave 13× more often than average on dates the rules never saw, a marketer can read and change them, and every customer comes with a reason that decides the offer. A model on 50,000 rows whose plan and contract fields show only the latest values would risk learning the future.
 
 **How do you know the AI read the notes correctly?**
-It labelled 403 distinct sentences, not 8,000 notes, so every label can be checked by a person. Every label can be read by a person in under an hour, and a blind sample of 100 is ready for two of us to label (3_ai_outputs/hand_check). The outcome agrees: flagged customers left at 49.3%. Any sentence it has never seen goes to a review queue as "unknown".
+It labelled 403 distinct sentences, not 8,000 notes, so every label can be checked by a person. We relabelled a sample of 100 sentences from the written definitions: a second Claude pass agreed with the first labels on leave / not leave for 100% and on the exact intent level for 86%. The disagreements are listed in hand_check/disagreements.csv. The outcome agrees: flagged customers left at 49.3%. Any sentence it has never seen goes to a review queue as "unknown".
 
 **Notes catch only 9% of leavers. Isn't that small?**
 It is the precise part: about 1 in 2 flagged customers leave. Agents note almost every contact, so the others simply never call support. Next: the welcome check-in for new customers (2.6× average churn) and asking agents to log every contact.

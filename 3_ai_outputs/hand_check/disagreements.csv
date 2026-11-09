@@ -1,0 +1,16 @@
+﻿labeler,id,sentence,topic_ai,topic_human,leave_intent_ai,leave_intent_human
+Labeler A,S008,"Long-standing customer, now seriously considering another carrier.",competitor,competitor,2,1
+Labeler A,S010,Mentioned they already visited a <RIVAL> store to compare plans.,competitor,competitor,2,1
+Labeler A,S016,Not impressed by the retention offer and is looking around.,renewal_doubt,renewal_doubt,2,1
+Labeler A,S024,Says they are seriously considering cancelling the service.,cancel,cancel,2,1
+Labeler A,S027,Found the renewal offer weak and hinted they may leave.,renewal_doubt,renewal_doubt,2,1
+Labeler A,S031,Wanted the exact penalty for ending the contract early.,cancel,cancel,2,1
+Labeler A,S032,Asked how much the early cancellation fee would be.,cancel,cancel,2,1
+Labeler A,S036,Cannot justify the monthly cost and is shopping for a cheaper provider.,price_value,price_value,2,1
+Labeler A,S042,Considering cancellation and asked what we could offer to keep them.,cancel,cancel,2,1
+Labeler A,S044,Compared our rates against <RIVAL> and says we come out worse.,competitor,competitor,2,1
+Labeler A,S053,Asked about number retention after the account is closed.,port_out,port_out,2,1
+Labeler A,S065,Asked us to quote the termination charge before they decide.,cancel,cancel,2,1
+Labeler A,S068,Wants to know whether an unused number is still active.,line_closing_no_save,account_admin,0,0
+Labeler A,S075,Asked how long the number stays reserved after cancelling.,port_out,cancel,2,1
+Labeler A,S089,Wants to know whether the number can be kept once the line closes.,port_out,port_out,2,1
