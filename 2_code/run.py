@@ -3,6 +3,10 @@
     python run.py                       # uses data/raw/
     python run.py --data path/to/DATA   # other data folder
     python run.py --new-notes new.csv   # add a new support-notes file and refresh every audience
+    python run.py --use-llm             # real use: label unseen note sentences with Claude (needs ANTHROPIC_API_KEY)
+
+New notes files are also picked up automatically: put them next to support_tickets.csv in the data
+folder, named support_tickets_<anything>.csv (same columns, only the added notes).
 """
 import argparse
 import os
@@ -11,7 +15,8 @@ import sys
 import pandas as pd
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
-import clean, notes, signals, audit, campaigns, sizing, report  # noqa: E402
+import clean, notes, signals, audit, campaigns, sizing, report, llm  # noqa: E402
+import glob  # noqa: E402
 import re  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -33,7 +38,8 @@ def main():
         sys.stdout.reconfigure(errors="replace")
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", default=os.path.join(HERE, "data", "raw"))
-    ap.add_argument("--new-notes", default=None, help="extra support_tickets-style CSV")
+    ap.add_argument("--new-notes", action="append", default=[], help="extra support_tickets-style CSV (repeatable)")
+    ap.add_argument("--use-llm", action="store_true", help="label unseen sentences with Claude (ANTHROPIC_API_KEY)")
     ap.add_argument("--asof", default=str(AS_OF.date()))
     a = ap.parse_args()
     out = os.path.join(ROOT, "4_outputs")
@@ -42,16 +48,28 @@ def main():
 
     print("1/6 cleaning raw files")
     subs, tickets, camps, contacts, copy, log = clean.run(a.data)
-    if a.new_notes:
-        extra = clean.clean_tickets(a.new_notes, subs)
+    new_files = sorted(set(glob.glob(os.path.join(a.data, "support_tickets_*.csv"))) | set(a.new_notes))
+    for path in new_files:
+        extra = clean.clean_tickets(path, subs)
         tickets = pd.concat([tickets, extra]).drop_duplicates("ticket_id", keep="last")
         log = pd.DataFrame(clean.LOG)
-        print(f"  added new notes file: {len(extra)} tickets")
+        print(f"  added new notes file {os.path.basename(path)}: {len(extra)} tickets")
     save(log, "cleaning_log.csv", out)
     save(subs, "customers_clean.csv", out)
 
     print("2/6 reading support notes with the AI sentence labels")
-    read, queue = notes.read_notes(tickets, os.path.join(ROOT, "3_ai_outputs", "sentence_labels.csv"))
+    labels = os.path.join(ROOT, "3_ai_outputs", "sentence_labels.csv")
+    read, queue = notes.read_notes(tickets, labels)
+    if len(queue) and a.use_llm:
+        if not llm.available():
+            print("  --use-llm given but ANTHROPIC_API_KEY is not set: unseen notes stay in the review queue")
+        else:
+            lab = pd.read_csv(labels)
+            new = sorted({notes.normalise(x) for q in queue["unread_sentences"] for x in q.split(" | ")})
+            rows = llm.label_sentences(new, set(lab["topic"]))
+            pd.concat([lab, pd.DataFrame(rows)]).to_csv(labels, index=False)
+            print(f"  Claude labelled {len(rows)} of {len(new)} new sentences; saved to 3_ai_outputs/sentence_labels.csv")
+            read, queue = notes.read_notes(tickets, labels)
     save(read, "notes_read.csv", out)
     save(queue, "review_queue.csv", out)
     missed = read[read["tag_missed_risk"]]
@@ -117,6 +135,9 @@ def main():
                 log, camps, contacts, aud, seg, tickets)
     report.build(R, ROOT)
     print("  wrote 4_outputs/RESULTS.xlsx, 1_report/report.html, 5_finals/slides.html")
+    import make_campaign
+    make_campaign.make(make_campaign.EXAMPLE, quiet=True)
+    print("  wrote 4_outputs/brief_campaign.md and brief_audience.csv (the README brief example)")
 
     print("\nHeadlines")
     b = bt[bt["rule"].isin(["R1_leaving_now", "R2_wavering", "BASELINE_contract_ends_<=4m", "ALL_postpaid"])]

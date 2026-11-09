@@ -13,16 +13,18 @@ or `1_report/report.pdf`. You do not need to run anything.
 
 ## Rebuild everything (about 30 seconds)
 
-Works with standard Python 3.10 or newer on Windows or Mac. No internet or AI model needed.
+Tested on **Python 3.12.3** (also runs on 3.10–3.13) on Windows or Mac, with the pinned versions in
+`requirements.txt`. The rerun needs no internet and no AI model: it reads the saved AI outputs.
 
-**1. Put the data in place.** Copy the case data files into `2_code/data/raw/`:
+**1. Put the data in place.** The data pack is not included. Copy its files into `2_code/data/raw/`
+(or keep them anywhere and run `python run.py --data path/to/folder`):
 `subscribers.csv`, `support_tickets.csv`, `campaigns.csv`, `campaign_copy.csv`, `campaign_contacts.csv`.
 
 **2. Open a terminal in the `2_code` folder.**
 Windows: open the `2_code` folder in File Explorer, click the address bar, type `cmd`, press Enter.
 Mac: right-click the `2_code` folder → New Terminal at Folder.
 
-**3. Install the three libraries (once):**
+**3. Install the libraries (once, pinned versions):**
 
 ```
 python -m pip install -r requirements.txt
@@ -36,8 +38,9 @@ python -m pip install -r requirements.txt
 python run.py
 ```
 
-When it ends you see a "Headlines" table. Everything is rebuilt in `4_outputs/`, `1_report/report.html`
-and `5_finals/slides.html`. To make the PDFs, open either HTML file in Chrome or Edge → Print → Save as PDF
+When it ends you see a "Headlines" table. Everything is rebuilt in `4_outputs/` (every table, RESULTS.xlsx,
+the campaign builder and the brief example), plus `1_report/report.html` and `5_finals/slides.html`.
+Our `report.pdf` and `slides.pdf` are our own written work and are not rebuilt by code. To make the PDFs, open either HTML file in Chrome or Edge → Print → Save as PDF
 (slides: landscape).
 
 ---
@@ -55,6 +58,10 @@ Double-click `4_outputs/campaign_builder.html`. Pick an offer, a channel, who, a
 
 ## Or from the terminal: write a campaign from a one-line brief
 
+**Brief format:** one line of plain English that names one approved offer, plus optionally a channel
+(SMS, LINE, email, app push, call), a reason (rival, price, renewal, bill, signal, phone, data) and a tier
+(leaving, wavering, new, unhappy). Example and the campaign it made: `4_outputs/brief_campaign.md`.
+
 ```
 python make_campaign.py "renewal discount by SMS for customers who mention a rival"
 python make_campaign.py "data boost on LINE for wavering customers"
@@ -62,24 +69,53 @@ python make_campaign.py "roaming pass app push"
 ```
 
 You get the audience size (sample and full base), the finished message with the legal footer,
-and PASS/FAIL against the brand rules. The customer list is saved to `4_outputs/brief_audience.csv`.
+and PASS/FAIL against the brand rules. Everything is saved to `4_outputs/brief_campaign.md` and the customer list to `4_outputs/brief_audience.csv`.
+`python run.py` also runs the first example, so those two files always hold the campaign made from it.
 Name one approved offer: Renewal discount, Data boost, Device credit, Plan upgrade, Data add-on, Roaming pass.
 
-## Checking the AI by hand (do this before hand-in)
-
-1. Open `3_ai_outputs/hand_check/hand_check_sheet.xlsx`. Read the Guide sheet.
-2. Two team members each fill one sheet (Labeler A, Labeler B) using the dropdowns, without looking at the AI labels or each other's sheet. 100 sentences: all 75 the AI marked as leave intent plus 25 random others.
-3. Save, then run `python check_labels.py`. It writes the agreement into `3_ai_outputs/how_we_did_it.md` and `hand_check/result.json`, and lists every disagreement in `hand_check/disagreements.csv`.
-4. Run `python run.py` again so the finals talk script uses your numbers.
-
 ## New support notes arrived?
+
+Put the new file **next to `support_tickets.csv`** in the data folder, named `support_tickets_<anything>.csv`
+(for example `support_tickets_2026-07-02.csv`): same columns, only the added notes. Then run `python run.py`
+as usual; every `support_tickets_*.csv` there is added automatically. A file elsewhere also works:
 
 ```
 python run.py --new-notes path/to/new_notes.csv
 ```
 
-The file needs the same columns as `support_tickets.csv`. Every audience is refreshed. Any sentence the
-AI has never read sends that note to `4_outputs/review_queue.csv`, marked `unknown`, instead of being guessed.
+Every audience is refreshed. Any note sentence the AI has not read yet sends that note to
+`4_outputs/review_queue.csv`, marked `unknown`, instead of being guessed.
+
+## The AI step in real use (switch it on with a key)
+
+In real use the pipeline calls Claude through the Anthropic API to read new notes and briefs.
+The rerun leaves that call out and reads what the AI produced once, saved in `3_ai_outputs/`.
+
+| AI step | Prompt | Saved output (read in the rerun) | Code |
+|---|---|---|---|
+| Label each note sentence: topic + leave intent 0–3 | `3_ai_outputs/prompts/label_sentences.md` | `sentence_labels.csv` | `src/llm.py`, `src/notes.py` |
+| Write the message for each approved offer | `3_ai_outputs/prompts/copy_templates.md` | `copy_templates.json` | `src/campaigns.py` |
+| Read a marketer's brief | `3_ai_outputs/prompts/parse_brief.md` | `4_outputs/brief_campaign.md` (example) | `make_campaign.py` |
+
+To switch it on:
+
+```
+set ANTHROPIC_API_KEY=sk-ant-...        (Mac/Linux: export ANTHROPIC_API_KEY=sk-ant-...)
+python run.py --use-llm
+python make_campaign.py --use-llm "renewal discount by SMS for customers who mention a rival"
+```
+
+With `--use-llm`, every sentence in the review queue is sent to Claude (model `claude-opus-5-5`, temperature 0;
+change it with `FORMOSA_MODEL`). Answers with an unknown topic or level are rejected and stay in the queue. Valid
+labels are added to `sentence_labels.csv`, so the next run reads them offline. The call uses only the Python
+standard library. Without a key, or without `--use-llm`, nothing is sent anywhere.
+
+## Checking the AI labels
+
+Done for this hand-in: a second Claude pass relabelled 100 sentences (all 75 the AI marked as leave intent plus
+25 random others) from the written definitions. Results are in `3_ai_outputs/how_we_did_it.md` and
+`3_ai_outputs/hand_check/`. A team member can still fill the Labeler B sheet of `hand_check_sheet.xlsx`
+and run `python check_labels.py`, then `python run.py`.
 
 ---
 
@@ -87,11 +123,11 @@ AI has never read sends that note to `4_outputs/review_queue.csv`, marked `unkno
 
 | Folder | What it holds |
 |---|---|
-| `1_report/` | `report.pdf` (parts 1–6), `report.html`, `charts/` |
-| `2_code/` | This README, `run.py`, `make_campaign.py`, `src/`, `requirements.txt`, `data/raw/` |
-| `3_ai_outputs/` | The AI's work, saved once: `sentence_labels.csv`, `copy_templates.json`, `how_we_did_it.md` |
+| `1_report/` | `report.pdf` (parts 1–6, our written report); `report.html` and `charts/` are written when you run |
+| `2_code/` | This README, `run.py`, `make_campaign.py`, `src/`, `requirements.txt`, `src/llm.py` (live AI step); the data pack goes in `data/raw/` (not included) |
+| `3_ai_outputs/` | The AI's work, saved once: `sentence_labels.csv`, `copy_templates.json`, `prompts/`, `hand_check/`, `how_we_did_it.md` |
 | `4_outputs/` | `RESULTS.xlsx` plus every table as CSV |
-| `5_finals/` | `slides.pdf`, `slides.html`, `talk_script.md` (8-minute script + hard Q&A) |
+| `5_finals/` | `slides.pdf`; `slides.html` and `talk_script.md` (8-minute script + hard Q&A) are written when you run |
 
 ## The files in `4_outputs/`
 
@@ -99,6 +135,7 @@ AI has never read sends that note to `4_outputs/review_queue.csv`, marked `unkno
 |---|---|
 | **RESULTS.xlsx** | All key tables, formatted, in one workbook |
 | **campaign_builder.html** | Clickable campaign builder for marketers |
+| brief_campaign.md / brief_audience.csv | The campaign `make_campaign.py` made from the README example brief |
 | customers_clean.csv | The clean customer table |
 | cleaning_log.csv | Every fix, with row counts before and after |
 | notes_read.csv | Every support note: topics, leave intent (0–3), reason, rival named |

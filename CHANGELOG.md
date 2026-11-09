@@ -1,5 +1,13 @@
 # Changelog
 
+## 9 Nov 2026: organizers' FAQ
+- Pinned requirements (`==`) and named the tested Python (3.12.3; outputs identical on 3.13).
+- Live AI step: `src/llm.py` calls Claude through the Anthropic API with the saved prompts in `3_ai_outputs/prompts/`,
+  only with `--use-llm` and `ANTHROPIC_API_KEY`. The rerun stays offline; unseen sentences still go to the review queue.
+- New notes files are picked up automatically when saved next to `support_tickets.csv` as `support_tickets_*.csv`.
+- `run.py` saves the README brief example as `4_outputs/brief_campaign.md` and `brief_audience.csv`.
+- SMS messages now open with "Formosa Telecom:" (FAQ: name Formosa Telecom in the message). No number changed.
+
 ## 9 Nov 2026: label check
 - The organizers allowed AI for the hand check. Labeler A is a second Claude Opus 5.5 pass from the written definitions (same model as the first labels, so it checks consistency, not independent human agreement): 100% agreement on leave / not leave, 86% on the exact intent level, 98% on topic. All 14 intent disagreements are 1 vs 2, which keeps the customer in R2, so no audience or NT$ figure changes. Labeler B is left for a team member.
 

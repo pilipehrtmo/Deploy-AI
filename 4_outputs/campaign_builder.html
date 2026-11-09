@@ -27,7 +27,7 @@ function update(){const o=$("offer").value,ch=$("channel").value,ti=$("tier").va
  $("size").innerText=(n*130).toLocaleString()+" customers";
  $("sizeNote").innerText=`${n} in the sample × 130. About ${Math.round(n*130*D.share[ch]).toLocaleString()} can be reached on ${ch} (${Math.round(D.share[ch]*100)}% have agreed).`+(n?"":" Nobody matches: widen Who or Reason.");
  let body;if(ch==="Outbound Call"){body=(T.call_script||T.body).replace("{reason_text}",RT[re]||"their recent contact with us")+"\n\nBefore ending the call, read word for word:\n\n"+D.footer}
- else{const f=(ch==="SMS"||ch==="LINE")?D.short:D.footer;body=(ch==="SMS"?"Formosa: "+T.body+" "+T.cta+".":T.body)+"\n\n"+f}
+ else{const f=(ch==="SMS"||ch==="LINE")?D.short:D.footer;body=(ch==="SMS"?"Formosa Telecom: "+T.body+" "+T.cta+".":T.body)+"\n\n"+f}
  $("head").innerText=T.headline;$("body").innerText=body;$("cta").innerText=T.cta;
  const p=check(T.headline,body,T.cta,ch);
  $("check").innerHTML=(p.length?'<span class="fail">FAIL</span> · '+p.join("; "):'<span class="pass">PASS</span> · approved offer, legal footer verbatim, no banned claims'+(ch==="Outbound Call"?" (agent reads the footer aloud)":""))}

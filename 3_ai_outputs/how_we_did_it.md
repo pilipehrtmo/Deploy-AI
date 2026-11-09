@@ -4,6 +4,11 @@ Model: Claude Opus 5.5 (Anthropic), used through the Claude app. Every AI step r
 side. Its output is saved in this folder, and the code only reads these files, so the rerun is
 offline and gives the same result every time.
 
+The prompts are in `prompts/`. In real use the same prompts run through the Anthropic API
+(`2_code/src/llm.py`, switched on with `ANTHROPIC_API_KEY` and `python run.py --use-llm`): new note
+sentences are labelled and added to `sentence_labels.csv`, and briefs are read by
+`make_campaign.py --use-llm`. The rerun does not call it.
+
 ## Step 1: reading the support notes → `sentence_labels.csv`
 
 1. We split all 8,000 agent notes into sentences and normalised them: bill amounts → `NT$<N>`,

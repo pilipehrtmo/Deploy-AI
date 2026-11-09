@@ -21,7 +21,7 @@ def draft(templates, offer, channel, reason=""):
         script = t.get("call_script", t["body"]).format(reason_text=reason_text)
         body = f"{script}\n\nBefore ending the call, read word for word:\n\n{FOOTER}"
     elif channel == "SMS":
-        body = f"Formosa: {t['body']} {t['cta']}.\n\n{footer}"
+        body = f"Formosa Telecom: {t['body']} {t['cta']}.\n\n{footer}"
     else:
         body = f"{t['body']}\n\n{footer}"
     msg = {"headline": t["headline"], "body": body, "cta": t["cta"]}

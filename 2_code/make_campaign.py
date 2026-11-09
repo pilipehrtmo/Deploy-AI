@@ -4,6 +4,7 @@ Examples:
     python make_campaign.py "renewal discount by SMS for customers who mention a rival"
     python make_campaign.py "data boost on LINE for wavering customers"
     python make_campaign.py "roaming pass app push"
+    python make_campaign.py --use-llm "..."   # real use: Claude reads the brief (needs ANTHROPIC_API_KEY)
 
 Run `python run.py` first: this tool reads 4_outputs/audience_members.csv.
 """
@@ -39,24 +40,27 @@ def parse(brief):
     return offer, channel, reason, tier
 
 
-def main():
-    if hasattr(sys.stdout, "reconfigure"):
-        sys.stdout.reconfigure(errors="replace")
-    if len(sys.argv) < 2:
-        print(__doc__)
-        return
-    brief = " ".join(sys.argv[1:])
-    offer, channel, reason, tier = parse(brief)
-    if not offer:
+EXAMPLE = "renewal discount by SMS for customers who mention a rival"
+
+
+def make(brief, quiet=False, use_llm=False):
+    """Brief -> audience + message + compliance. Saves 4_outputs/brief_campaign.md and brief_audience.csv."""
+    if use_llm:
+        import llm
+        if not llm.available():
+            print("--use-llm given but ANTHROPIC_API_KEY is not set: reading the brief with keyword rules")
+            use_llm = False
+    offer, channel, reason, tier = llm.parse_brief(brief) if use_llm else parse(brief)
+    if offer not in OFFERS:
         print("Name an approved offer in the brief: " + ", ".join(OFFERS))
-        return
+        return None
     tpl = campaigns.load_templates(os.path.join(ROOT, "3_ai_outputs", "copy_templates.json"))
     msg = campaigns.draft(tpl, offer, channel, reason)
 
     path = os.path.join(ROOT, "4_outputs", "audience_members.csv")
     if not os.path.exists(path):
         print("Run `python run.py` first to build the audiences.")
-        return
+        return None
     m = pd.read_csv(path)
     aud = m[m["offer"] == offer]
     if tier:
@@ -64,19 +68,34 @@ def main():
     if reason:
         aud = aud[aud["reasons"].fillna("").str.contains(reason)]
     reach_share = campaigns_share(channel)
-    print(f"BRIEF    {brief}")
-    print(f"READ AS  offer={offer} | channel={channel} | reason={reason or 'any'} | tier={tier or 'any'}")
-    print(f"AUDIENCE {len(aud)} in sample = about {len(aud) * 130:,} customers at full scale; "
-          f"about {int(len(aud) * 130 * reach_share):,} reachable on {channel} ({reach_share:.0%} consent)")
+    lines = [f"BRIEF    {brief}",
+             f"READ AS  offer={offer} | channel={channel} | reason={reason or 'any'} | tier={tier or 'any'}",
+             f"AUDIENCE {len(aud)} in sample = about {len(aud) * 130:,} customers at full scale; "
+             f"about {int(len(aud) * 130 * reach_share):,} reachable on {channel} ({reach_share:.0%} consent)"]
     if len(aud) == 0:
-        print("         No customers match all of that. Try the brief without the tier or reason words.")
-    print("-" * 70)
-    print(f"HEADLINE {msg['headline']}\n\n{msg['body']}\n\nCTA      {msg['cta']}")
-    print("-" * 70)
-    print("COMPLIANCE " + ("PASS" if not msg["problems"] else "FAIL: " + "; ".join(msg["problems"])))
-    out = os.path.join(ROOT, "4_outputs", "brief_audience.csv")
-    aud.to_csv(out, index=False, encoding="utf-8-sig")
-    print(f"Audience list saved to 4_outputs/brief_audience.csv")
+        lines.append("         No customers match all of that. Try the brief without the tier or reason words.")
+    lines += ["-" * 70, f"HEADLINE {msg['headline']}\n\n{msg['body']}\n\nCTA      {msg['cta']}", "-" * 70,
+              "COMPLIANCE " + ("PASS" if not msg["problems"] else "FAIL: " + "; ".join(msg["problems"]))]
+    text = "\n".join(lines)
+    out = os.path.join(ROOT, "4_outputs")
+    aud.to_csv(os.path.join(out, "brief_audience.csv"), index=False, encoding="utf-8-sig")
+    with open(os.path.join(out, "brief_campaign.md"), "w", encoding="utf-8") as f:
+        f.write("# Campaign made from a brief by make_campaign.py\n\n```\n" + text + "\n```\n\n"
+                "Customer list: `brief_audience.csv`.\n")
+    if not quiet:
+        print(text)
+        print("Saved to 4_outputs/brief_campaign.md and 4_outputs/brief_audience.csv")
+    return text
+
+
+def main():
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(errors="replace")
+    args = [x for x in sys.argv[1:] if x != "--use-llm"]
+    if not args:
+        print(__doc__)
+        return
+    make(" ".join(args), use_llm="--use-llm" in sys.argv)
 
 
 def campaigns_share(channel):
